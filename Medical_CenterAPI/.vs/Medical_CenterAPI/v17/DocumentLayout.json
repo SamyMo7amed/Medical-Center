@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\loq\\desktop\\medical_center\\medical_centerapi\\medical_centerapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\loq\\desktop\\medical_center\\medical_centerapi\\medical_centerapi\\models\\patiant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\models\\patiant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\loq\\desktop\\medical_center\\medical_centerapi\\medical_centerapi\\models\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\models\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\loq\\desktop\\medical_center\\medical_centerapi\\medical_centerapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -15,8 +19,8 @@
       "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\loq\\desktop\\medical_center\\medical_centerapi\\medical_centerapi\\models\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\models\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\loq\\desktop\\medical_center\\medical_centerapi\\medical_centerapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,6 +35,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Patiant.cs",
+              "DocumentMoniker": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\Patiant.cs",
+              "RelativeDocumentMoniker": "Medical_CenterAPI\\Models\\Patiant.cs",
+              "ToolTip": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\Patiant.cs",
+              "RelativeToolTip": "Medical_CenterAPI\\Models\\Patiant.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T07:26:54.792Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Program.cs",
               "RelativeDocumentMoniker": "Medical_CenterAPI\\Program.cs",
@@ -38,38 +55,37 @@
               "RelativeToolTip": "Medical_CenterAPI\\Program.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAABcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-16T14:57:30.751Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-16T14:57:30.751Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\appsettings.json",
               "RelativeDocumentMoniker": "Medical_CenterAPI\\appsettings.json",
               "ToolTip": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\appsettings.json",
               "RelativeToolTip": "Medical_CenterAPI\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAACfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-04-16T14:53:27.13Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "AppUser.cs",
               "DocumentMoniker": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\AppUser.cs",
               "RelativeDocumentMoniker": "Medical_CenterAPI\\Models\\AppUser.cs",
               "ToolTip": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\AppUser.cs",
               "RelativeToolTip": "Medical_CenterAPI\\Models\\AppUser.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-16T14:41:10.976Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Medical_CenterAPI\\Data\\AppDbContext.cs",
@@ -77,8 +93,7 @@
               "RelativeToolTip": "Medical_CenterAPI\\Data\\AppDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-16T14:39:22.003Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-16T14:39:22.003Z"
             }
           ]
         }
