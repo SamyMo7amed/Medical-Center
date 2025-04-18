@@ -13,6 +13,13 @@ namespace Medical_CenterAPI.Data
 
 
 
-        } 
+        }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            
+        }
+
+
+       
     }
 }
