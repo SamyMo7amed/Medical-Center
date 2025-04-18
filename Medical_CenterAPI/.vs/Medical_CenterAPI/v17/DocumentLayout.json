@@ -1,33 +1,41 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\Medical-Center\\Medical_CenterAPI\\",
+  "WorkspaceRootPath": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\nvidia\\onedrive\\desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\medical-center\\medical_centerapi\\medical_centerapi\\models\\appointments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\models\\appointments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\loq\\desktop\\medical_center\\medical_centerapi\\medical_centerapi\\models\\assistant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\models\\assistant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\nvidia\\onedrive\\desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\medical-center\\medical_centerapi\\medical_centerapi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\loq\\desktop\\medical_center\\medical_centerapi\\medical_centerapi\\models\\appointmentconfirmation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\models\\appointmentconfirmation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\nvidia\\onedrive\\desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\medical-center\\medical_centerapi\\medical_centerapi\\models\\doctor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\models\\doctor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\nvidia\\onedrive\\desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\medical-center\\medical_centerapi\\medical_centerapi\\models\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\models\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\nvidia\\onedrive\\desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\medical-center\\medical_centerapi\\medical_centerapi\\models\\patiant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\loq\\desktop\\medical_center\\medical_centerapi\\medical_centerapi\\models\\patiant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\models\\patiant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\nvidia\\onedrive\\desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\medical-center\\medical_centerapi\\medical_centerapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\loq\\desktop\\medical_center\\medical_centerapi\\medical_centerapi\\models\\appointments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\models\\appointments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\loq\\desktop\\medical_center\\medical_centerapi\\medical_centerapi\\models\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\models\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\loq\\desktop\\medical_center\\medical_centerapi\\medical_centerapi\\models\\doctor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\models\\doctor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\loq\\desktop\\medical_center\\medical_centerapi\\medical_centerapi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\loq\\desktop\\medical_center\\medical_centerapi\\medical_centerapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\nvidia\\onedrive\\desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\medical-center\\medical_centerapi\\medical_centerapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|c:\\users\\loq\\desktop\\medical_center\\medical_centerapi\\medical_centerapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2E13741C-FC60-4BE3-9FE7-1B10EBAE453E}|Medical_CenterAPI\\Medical_CenterAPI.csproj|solutionrelative:medical_centerapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -38,19 +46,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Assistant.cs",
+              "DocumentMoniker": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\Assistant.cs",
+              "RelativeDocumentMoniker": "Medical_CenterAPI\\Models\\Assistant.cs",
+              "ToolTip": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\Assistant.cs",
+              "RelativeToolTip": "Medical_CenterAPI\\Models\\Assistant.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-18T12:24:54.665Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "AppointmentConfirmation.cs",
+              "DocumentMoniker": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\AppointmentConfirmation.cs",
+              "RelativeDocumentMoniker": "Medical_CenterAPI\\Models\\AppointmentConfirmation.cs",
+              "ToolTip": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\AppointmentConfirmation.cs",
+              "RelativeToolTip": "Medical_CenterAPI\\Models\\AppointmentConfirmation.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABwAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-18T12:33:25.905Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Doctor.cs",
-              "DocumentMoniker": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\Medical-Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\Doctor.cs",
+              "DocumentMoniker": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\Doctor.cs",
               "RelativeDocumentMoniker": "Medical_CenterAPI\\Models\\Doctor.cs",
-              "ToolTip": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\Medical-Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\Doctor.cs",
+              "ToolTip": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\Doctor.cs",
               "RelativeToolTip": "Medical_CenterAPI\\Models\\Doctor.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -59,13 +93,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Appointments.cs",
-              "DocumentMoniker": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\Medical-Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\Appointments.cs",
+              "DocumentMoniker": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\Appointments.cs",
               "RelativeDocumentMoniker": "Medical_CenterAPI\\Models\\Appointments.cs",
-              "ToolTip": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\Medical-Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\Appointments.cs",
+              "ToolTip": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\Appointments.cs",
               "RelativeToolTip": "Medical_CenterAPI\\Models\\Appointments.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBcAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAAAgwCMAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-17T20:43:35.879Z",
               "EditorCaption": ""
@@ -76,24 +110,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "Patiant.cs",
-              "DocumentMoniker": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\Medical-Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\Patiant.cs",
+              "DocumentMoniker": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\Patiant.cs",
               "RelativeDocumentMoniker": "Medical_CenterAPI\\Models\\Patiant.cs",
-              "ToolTip": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\Medical-Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\Patiant.cs",
+              "ToolTip": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\Patiant.cs",
               "RelativeToolTip": "Medical_CenterAPI\\Models\\Patiant.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-17T07:26:54.792Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\Medical-Center\\Medical_CenterAPI\\Medical_CenterAPI\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Program.cs",
               "RelativeDocumentMoniker": "Medical_CenterAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\Medical-Center\\Medical_CenterAPI\\Medical_CenterAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Program.cs",
               "RelativeToolTip": "Medical_CenterAPI\\Program.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAcAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -101,42 +135,40 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\Medical-Center\\Medical_CenterAPI\\Medical_CenterAPI\\appsettings.json",
+              "DocumentMoniker": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\appsettings.json",
               "RelativeDocumentMoniker": "Medical_CenterAPI\\appsettings.json",
-              "ToolTip": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\Medical-Center\\Medical_CenterAPI\\Medical_CenterAPI\\appsettings.json",
+              "ToolTip": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\appsettings.json",
               "RelativeToolTip": "Medical_CenterAPI\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-16T14:53:27.13Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-16T14:53:27.13Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "AppUser.cs",
-              "DocumentMoniker": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\Medical-Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\AppUser.cs",
+              "DocumentMoniker": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\AppUser.cs",
               "RelativeDocumentMoniker": "Medical_CenterAPI\\Models\\AppUser.cs",
-              "ToolTip": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\Medical-Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\AppUser.cs",
+              "ToolTip": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Models\\AppUser.cs",
               "RelativeToolTip": "Medical_CenterAPI\\Models\\AppUser.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-16T14:41:10.976Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\Medical-Center\\Medical_CenterAPI\\Medical_CenterAPI\\Data\\AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Medical_CenterAPI\\Data\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\Nvidia\\OneDrive\\Desktop\\\u0627\u0644\u0643\u062A\u0628\\3\\\u0641\u0631\u0642\u0629 \u062A\u0627\u0644\u062A\u0647 2\\advanced software\\\u0628\u0631\u0648\u062C\u0643\u062A\\repo_project\\Medical-Center\\Medical_CenterAPI\\Medical_CenterAPI\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\LOQ\\Desktop\\Medical_Center\\Medical_CenterAPI\\Medical_CenterAPI\\Data\\AppDbContext.cs",
               "RelativeToolTip": "Medical_CenterAPI\\Data\\AppDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-16T14:39:22.003Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-16T14:39:22.003Z"
             }
           ]
         }

@@ -17,5 +17,6 @@ namespace Medical_CenterAPI.Models
 
         public string ConfirmPassword { get; set; } 
         public string Phone { get; set; }   
+      
     }
 }
