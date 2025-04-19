@@ -9,7 +9,12 @@ namespace Medical_CenterAPI.Models
         [Range(0.0,150.0)]
 
         public double Age { get; set; }    
+
         public Dictionary<string, string>? MedicalHistory { get; set; }
+
+        //properties that define relationShips
+        public List<Appointment> Appointments { get; set; } 
+
 
     }
 }

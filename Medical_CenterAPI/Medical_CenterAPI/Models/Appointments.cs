@@ -45,6 +45,11 @@ namespace Medical_CenterAPI.Models
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+        //properties that define relationShips
+        public AppointmentConfirmation AppointmentConfirmation { get; set; }
+
+        public Guid AppointmentConfirmationId { get; set; }  
+
 
     }
 }
