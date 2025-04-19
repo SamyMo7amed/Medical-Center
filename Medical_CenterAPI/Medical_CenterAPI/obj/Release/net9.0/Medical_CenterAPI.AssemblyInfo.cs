@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Medical_CenterAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e577cda21593c68832f12a6357522f57e293f63")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a4021e3b1bc5c86a0b3323aa0868459a1b3b8119")]
 [assembly: System.Reflection.AssemblyProductAttribute("Medical_CenterAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Medical_CenterAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
