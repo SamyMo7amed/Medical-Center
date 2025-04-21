@@ -31,7 +31,7 @@ namespace Medical_CenterAPI.Models
 
         public DateTime ConfirmationDate { get; set; }
 
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
 
     }
