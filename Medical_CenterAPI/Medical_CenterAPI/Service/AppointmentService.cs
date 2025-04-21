@@ -1,35 +1,35 @@
 ﻿using Medical_CenterAPI.Models;
 
-namespace Medical_CenterAPI.Repository
+namespace Medical_CenterAPI.Service
 {
-    public class PatiantRepository : IRepository<Patiant>
+    public class AppointmentService : IService<Appointment>
     {
-        Task IRepository<Patiant>.AddAsync(Patiant entity)
+        public Task AddAsync(Appointment entity)
         {
             throw new NotImplementedException();
         }
 
-        void IRepository<Patiant>.DeleteAsync(Guid id)
+        public void DeleteAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        Task<IEnumerable<Patiant>> IRepository<Patiant>.GetAllAsync()
+        public Task<IEnumerable<Appointment>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        Task<Patiant> IRepository<Patiant>.GetByIdAsync(Guid id)
+        public Task<Appointment> GetByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        void IRepository<Patiant>.SaveChangesAsync()
+        public void SaveChangesAsync()
         {
             throw new NotImplementedException();
         }
 
-        void IRepository<Patiant>.UpdateAsync(Patiant entity)
+        public void UpdateAsync(Appointment entity)
         {
             throw new NotImplementedException();
         }

@@ -19,7 +19,7 @@ namespace Medical_CenterAPI.Models
 
         public Guid PatiantId { get; set; }
         [ForeignKey(nameof(PatiantId))]
-        public Patiant Patiant { get; set; }
+        public Patient Patiant { get; set; }
 
         // 2-doctor
 

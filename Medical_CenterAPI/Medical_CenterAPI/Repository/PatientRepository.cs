@@ -2,9 +2,9 @@
 
 namespace Medical_CenterAPI.Repository
 {
-    public class AppointmentRepository : IRepository<Appointment>
+    public class PatientRepository : IRepository<Patient>
     {
-        public Task AddAsync(Appointment entity)
+        public Task AddAsync(Patient entity)
         {
             throw new NotImplementedException();
         }
@@ -14,12 +14,12 @@ namespace Medical_CenterAPI.Repository
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Appointment>> GetAllAsync()
+        public Task<IEnumerable<Patient>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Appointment> GetByIdAsync(Guid id)
+        public Task<Patient> GetByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -29,10 +29,9 @@ namespace Medical_CenterAPI.Repository
             throw new NotImplementedException();
         }
 
-        public void UpdateAsync(Appointment entity)
+        public void UpdateAsync(Patient entity)
         {
             throw new NotImplementedException();
         }
     }
 }
- 

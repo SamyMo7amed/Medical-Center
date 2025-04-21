@@ -1,10 +1,10 @@
 ﻿using Medical_CenterAPI.Models;
 
-namespace Medical_CenterAPI.Repository
+namespace Medical_CenterAPI.Service
 {
-    public class AppointmentRepository : IRepository<Appointment>
+    public class DoctorService : IService<Doctor>
     {
-        public Task AddAsync(Appointment entity)
+        public Task AddAsync(Doctor entity)
         {
             throw new NotImplementedException();
         }
@@ -14,12 +14,12 @@ namespace Medical_CenterAPI.Repository
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Appointment>> GetAllAsync()
+        public Task<IEnumerable<Doctor>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Appointment> GetByIdAsync(Guid id)
+        public Task<Doctor> GetByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -29,10 +29,9 @@ namespace Medical_CenterAPI.Repository
             throw new NotImplementedException();
         }
 
-        public void UpdateAsync(Appointment entity)
+        public void UpdateAsync(Doctor entity)
         {
             throw new NotImplementedException();
         }
     }
 }
- 

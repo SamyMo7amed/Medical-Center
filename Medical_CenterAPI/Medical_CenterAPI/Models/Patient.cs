@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace Medical_CenterAPI.Models
 {
-    public class Patiant:AppUser
+    public class Patient:AppUser
     {
     
 

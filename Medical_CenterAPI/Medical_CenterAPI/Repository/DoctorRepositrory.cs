@@ -4,32 +4,32 @@ namespace Medical_CenterAPI.Repository
 {
     public class DoctorRepositrory : IRepository<Doctor>
     {
-        Task IRepository<Doctor>.AddAsync(Doctor entity)
+        public Task AddAsync(Doctor entity)
         {
             throw new NotImplementedException();
         }
 
-        void IRepository<Doctor>.DeleteAsync(Guid id)
+        public void DeleteAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        Task<IEnumerable<Doctor>> IRepository<Doctor>.GetAllAsync()
+        public Task<IEnumerable<Doctor>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        Task<Doctor> IRepository<Doctor>.GetByIdAsync(Guid id)
+        public Task<Doctor> GetByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        void IRepository<Doctor>.SaveChangesAsync()
+        public void SaveChangesAsync()
         {
             throw new NotImplementedException();
         }
 
-        void IRepository<Doctor>.UpdateAsync(Doctor entity)
+        public void UpdateAsync(Doctor entity)
         {
             throw new NotImplementedException();
         }

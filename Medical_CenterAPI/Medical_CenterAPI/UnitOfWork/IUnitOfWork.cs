@@ -8,7 +8,7 @@ namespace Medical_CenterAPI.UnitOfWork
     {
         
        DoctorRepositrory Doctors { get; }
-       PatiantRepository Patiants { get; }
+       PatientRepository Patients { get; }
        AssistantRepository Assistants { get; } 
        AppointmentRepository Appointments { get; }
        AppointmentConfirmationRepository AppointmentsConfirmations { get; } 

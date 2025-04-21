@@ -1,5 +1,6 @@
 using Medical_CenterAPI.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -36,6 +37,8 @@ builder.Services.AddAuthentication(options =>
     };
     options.SaveToken=true;
 });
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddCors(options =>
 {

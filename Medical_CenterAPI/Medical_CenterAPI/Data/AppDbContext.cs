@@ -28,7 +28,7 @@ namespace Medical_CenterAPI.Data
                 .HasForeignKey(a => a.DoctorId)
                 .OnDelete(DeleteBehavior.Restrict);
             // Patiant ---- Appointment
-            builder.Entity<Patiant>()
+            builder.Entity<Patient>()
                 .HasMany(p => p.Appointments)
                 .WithOne(a => a.Patiant)
                 .HasForeignKey(a => a.PatiantId)
