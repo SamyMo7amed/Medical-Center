@@ -6,9 +6,9 @@
         Task<IEnumerable<T>> GetAllAsync();
 
         Task AddAsync(T entity);    
-        Task UpdateAsync(T entity); 
-        Task DeleteAsync(Guid id);
-        Task SaveChangesAsync();   
+        void UpdateAsync(T entity); 
+        void DeleteAsync(Guid id);
+        void SaveChangesAsync();   
 
     }
     
