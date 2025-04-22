@@ -6,13 +6,17 @@ namespace Medical_CenterAPI.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        
-       DoctorRepositrory Doctors { get; }
-       PatientRepository Patients { get; }
-       AssistantRepository Assistants { get; } 
-       AppointmentRepository Appointments { get; }
-       AppointmentConfirmationRepository AppointmentsConfirmations { get; } 
-      UserManager<IdentityUser> UserManager { get;  } 
+
+        public IRepository<Doctor> Doctors { get; }
+
+        public IRepository<Patient> Patients { get; }
+
+        public IRepository<Assistant> Assistants { get; }
+
+        public IRepository<Appointment> Appointments { get; }
+
+        public IRepository<AppointmentConfirmation> AppointmentsConfirmations { get; }
+        UserManager<IdentityUser> UserManager { get;  } 
       RoleManager<IdentityRole> RoleManager { get; } 
       SignInManager<IdentityUser> signInManager {  get; }    
      

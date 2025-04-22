@@ -1,4 +1,5 @@
-﻿using Medical_CenterAPI.Repository;
+﻿using Medical_CenterAPI.Models;
+using Medical_CenterAPI.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 
@@ -20,15 +21,15 @@ namespace Medical_CenterAPI.UnitOfWork
             this.AppointmentsConfirmations = appointmentConfirmation; 
 
         }
-        public DoctorRepositrory Doctors { get; }
+        public IRepository<Doctor>  Doctors { get; }
 
-        public PatientRepository Patients {get;}
+        public IRepository<Patient> Patients {get;}
 
-        public AssistantRepository Assistants {get;}
+        public IRepository<Assistant> Assistants {get;}
 
-        public AppointmentRepository Appointments {get;}
+        public IRepository<Appointment> Appointments {get;}
 
-        public AppointmentConfirmationRepository AppointmentsConfirmations {get;}
+        public IRepository<AppointmentConfirmation> AppointmentsConfirmations {get;}
 
         public UserManager<IdentityUser> UserManager {get;}
 
