@@ -15,6 +15,16 @@ namespace Medical_CenterAPI.Data
 
 
         }
+
+        //  Table definition
+
+        public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<AppointmentConfirmation> AppointmentConfirmations { get; set; }
+        public DbSet<Assistant> Assistants { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Patiant> Patiants { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
@@ -52,4 +62,5 @@ namespace Medical_CenterAPI.Data
 
 
     }
+
 }
