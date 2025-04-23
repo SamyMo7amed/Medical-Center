@@ -63,7 +63,4 @@ namespace Medical_CenterAPI.Data
 
     }
 
-    public class Patiant
-    {
-    }
 }
