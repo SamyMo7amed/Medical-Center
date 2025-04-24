@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Medical_CenterAPI.Models
 {
-    public class AppUser :IdentityUser
+    public class AppUser :IdentityUser<Guid>
     {
         public Guid Id { get; set; }
 

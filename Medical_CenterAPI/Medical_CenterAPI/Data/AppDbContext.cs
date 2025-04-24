@@ -6,7 +6,7 @@ using System.Reflection.Emit;
 
 namespace Medical_CenterAPI.Data
 {
-    public class AppDbContext : IdentityDbContext<AppUser>
+    public class AppDbContext : IdentityDbContext<AppUser,IdentityRole<Guid>,Guid>
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {

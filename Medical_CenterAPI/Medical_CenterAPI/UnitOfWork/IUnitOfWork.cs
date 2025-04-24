@@ -16,9 +16,10 @@ namespace Medical_CenterAPI.UnitOfWork
         public IRepository<Appointment> Appointments { get; }
 
         public IRepository<AppointmentConfirmation> AppointmentsConfirmations { get; }
-        UserManager<IdentityUser> UserManager { get;  } 
+        UserManager<AppUser> UserManager { get;  } 
       RoleManager<IdentityRole> RoleManager { get; } 
-      SignInManager<IdentityUser> signInManager {  get; }    
+      SignInManager<IdentityUser> signInManager {  get; }
+        public Task<int> CommitAsync();
      
         
     }

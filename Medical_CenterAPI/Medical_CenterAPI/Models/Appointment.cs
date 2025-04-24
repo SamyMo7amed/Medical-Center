@@ -19,19 +19,19 @@ namespace Medical_CenterAPI.Models
 
         public Guid PatiantId { get; set; }
         [ForeignKey(nameof(PatiantId))]
-        public Patient Patiant { get; set; }
+        public virtual Patient Patiant { get; set; }
 
         // 2-doctor
 
         public Guid DoctorId { get; set; }
         [ForeignKey(nameof(DoctorId))]
-        public Doctor Doctor { get; set; }
+        public virtual Doctor Doctor { get; set; }
 
         // 3-Assistant
 
         public Guid AssistantId { get; set; }
         [ForeignKey(nameof(AssistantId))]
-        public Assistant Assistant { get; set; }
+        public virtual Assistant Assistant { get; set; }
 
         // 4- data 
 
@@ -46,7 +46,7 @@ namespace Medical_CenterAPI.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         //properties that define relationShips
-        public AppointmentConfirmation AppointmentConfirmation { get; set; }
+        public virtual AppointmentConfirmation AppointmentConfirmation { get; set; }
 
         public Guid AppointmentConfirmationId { get; set; }  
 

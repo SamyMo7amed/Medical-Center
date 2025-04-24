@@ -22,12 +22,12 @@ namespace Medical_CenterAPI.Models
          public  Guid AppointmentId { get; set; }
         [ForeignKey(nameof(AppointmentId))] 
         
-        public Appointment Appointment { get; set; }
+        public virtual Appointment Appointment { get; set; }
 
         public Guid AssistantId { get; set; }
         [ForeignKey(nameof(AssistantId))]      
         
-        public Assistant Assistant { get; set; }
+        public virtual Assistant Assistant { get; set; }
 
         public DateTime ConfirmationDate { get; set; }
 
