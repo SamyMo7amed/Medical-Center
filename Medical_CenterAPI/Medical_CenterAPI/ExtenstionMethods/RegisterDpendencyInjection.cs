@@ -2,6 +2,7 @@
 using Medical_CenterAPI.Repository;
 using Medical_CenterAPI.Service;
 using Medical_CenterAPI.UnitOfWork;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 namespace Medical_CenterAPI.ExtenstionMethods
 {
@@ -14,12 +15,16 @@ namespace Medical_CenterAPI.ExtenstionMethods
             services.AddScoped<IRepository<AppointmentConfirmation>,AppointmentConfirmationRepository>();
             services.AddScoped<IRepository<Assistant>,AssistantRepository>();
             services.AddScoped<IRepository<Patient>,PatientRepository>();
+            services.AddScoped<IJWTTokenRepository,JWTTokenRepository>();
             services.AddScoped<IService<Appointment>,AppointmentService>();
             services.AddScoped<IService<AppointmentConfirmation>,AppointmentConfirmationService>();
             services.AddScoped<IService<Doctor>,DoctorService>();
             services.AddScoped<IService<Assistant>,AssistantService>();
+            services.AddScoped<IJWTTokenService, JWTTokenService>();
             services.AddScoped<IService<Patient>,PatientService>();
             services.AddScoped<IUnitOfWork,UnitOFWork>();
+            //services.AddScoped<RoleManager<IdentityRole<Guid>>>();
+
 
         }
     }

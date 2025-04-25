@@ -1,5 +1,6 @@
 ﻿using Medical_CenterAPI.Models;
 using Medical_CenterAPI.UnitOfWork;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -10,18 +11,18 @@ namespace Medical_CenterAPI.Repository
     public class JWTTokenRepository : IJWTTokenRepository
     {
 
-        private readonly IUnitOfWork _unitOfWork;   
+        private readonly UserManager<AppUser> userManager;   
         private readonly IConfiguration _configuration;
-        public JWTTokenRepository(UnitOFWork unitOfWork,IConfiguration configuration) {
-            this._unitOfWork = unitOfWork;
+        public JWTTokenRepository(UserManager<AppUser> userManager,IConfiguration configuration) {
+            this.userManager = userManager;
             this._configuration = configuration;    
                 } 
         public async Task<List<Claim>> GetClaimsOFUserAsync(AppUser appUser)
         {
             List<Claim> claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.Name, appUser.Name));   
+            claims.Add(new Claim(ClaimTypes.Name, appUser.UserName!));   
             claims.Add(new Claim(ClaimTypes.NameIdentifier,appUser.Id.ToString()));
-            IList<string> roles = await _unitOfWork.UserManager.GetRolesAsync(appUser);
+            IList<string> roles = await userManager.GetRolesAsync(appUser);
             foreach (var role in roles) {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }

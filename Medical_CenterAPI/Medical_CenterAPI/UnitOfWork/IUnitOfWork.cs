@@ -7,19 +7,21 @@ namespace Medical_CenterAPI.UnitOfWork
     public interface IUnitOfWork
     {
 
-        public IRepository<Doctor> Doctors { get; }
+         IRepository<Doctor> Doctors { get; }
 
-        public IRepository<Patient> Patients { get; }
+         IRepository<Patient> Patients { get; }
 
-        public IRepository<Assistant> Assistants { get; }
+        IRepository<Assistant> Assistants { get; }
 
-        public IRepository<Appointment> Appointments { get; }
+        IRepository<Appointment> Appointments { get; }
 
-        public IRepository<AppointmentConfirmation> AppointmentsConfirmations { get; }
+        IRepository<AppointmentConfirmation> AppointmentsConfirmations { get; }
         UserManager<AppUser> UserManager { get;  } 
-      RoleManager<IdentityRole> RoleManager { get; } 
-      SignInManager<IdentityUser> signInManager {  get; }
-        public Task<int> CommitAsync();
+      RoleManager<IdentityRole<Guid>> RoleManager { get; } 
+      SignInManager<AppUser> signInManager {  get; }
+
+         IJWTTokenRepository JWTTokenRepository { get; }  
+         Task<int> CommitAsync();
      
         
     }

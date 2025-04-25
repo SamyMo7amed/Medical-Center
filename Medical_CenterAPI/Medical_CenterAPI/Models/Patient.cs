@@ -12,7 +12,7 @@ namespace Medical_CenterAPI.Models
 
         public double Age { get; set; }
 
-        public string MedicalHistoryJson { get; set; }
+        public string? MedicalHistoryJson { get; set; }
 
         [NotMapped]
         public Dictionary<string, string>? MedicalHistory 

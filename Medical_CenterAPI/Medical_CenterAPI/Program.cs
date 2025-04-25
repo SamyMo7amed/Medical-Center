@@ -1,4 +1,5 @@
 using Medical_CenterAPI.Data;
+using Medical_CenterAPI.ExtenstionMethods;
 using Medical_CenterAPI.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +20,7 @@ options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnection
 
 
 builder.Configuration.AddJsonFile("Secrets.json");
+
 // add configuration of Authentication
 builder.Services.AddAuthentication(options =>
 {
@@ -53,6 +55,7 @@ builder.Services.AddCors(options =>
         pol.AllowAnyHeader();
     });
 });
+builder.Services.RegisterDI();
 
 var app = builder.Build();
 

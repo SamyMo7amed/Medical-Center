@@ -2,13 +2,23 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
-namespace Medical_CenterAPI.Repository
+namespace Medical_CenterAPI.Service
 {
-    public interface IJWTTokenRepository
+    public interface IJWTTokenService
     {
-        Task<string > GetJWTTokenAsync(AppUser appUser);
+
         Task<List<Claim>> GetClaimsOFUserAsync(AppUser appUser);
+
+
+        Task<string> GetJWTTokenAsync(AppUser appUser);
+
+
+
+
+
         Task<SigningCredentials> GetSigningCredentialsAsync();
+  
+
 
     }
 }

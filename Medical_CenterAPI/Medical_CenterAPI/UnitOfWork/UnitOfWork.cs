@@ -11,7 +11,7 @@ namespace Medical_CenterAPI.UnitOfWork
         private readonly AppDbContext _appDbContext;
         public UnitOFWork(IRepository<Doctor> doctor,IRepository<Patient> patient,IRepository<Assistant> assistant,IRepository<Appointment> appointment
             ,IRepository<AppointmentConfirmation> appointmentConfirmation,UserManager<AppUser>
-                userManager,RoleManager<IdentityRole> roleManager,SignInManager<IdentityUser> signInManager,AppDbContext appDbContext) 
+                userManager,RoleManager<IdentityRole<Guid>> roleManager,SignInManager<AppUser> signInManager,AppDbContext appDbContext,IJWTTokenRepository jWTTokenRepository) 
         { 
             this.signInManager = signInManager;
             this.RoleManager = roleManager; 
@@ -22,6 +22,7 @@ namespace Medical_CenterAPI.UnitOfWork
             this.Appointments = appointment;    
             this.AppointmentsConfirmations = appointmentConfirmation; 
             this._appDbContext = appDbContext;  
+            this.JWTTokenRepository = jWTTokenRepository;
 
         }
         public IRepository<Doctor>  Doctors { get; }
@@ -36,9 +37,11 @@ namespace Medical_CenterAPI.UnitOfWork
 
         public UserManager<AppUser> UserManager {get;}
 
-        public RoleManager<IdentityRole> RoleManager {get;}
+        public RoleManager<IdentityRole<Guid>> RoleManager {get;}
 
-        public SignInManager<IdentityUser> signInManager {get;}
+        public SignInManager<AppUser> signInManager {get;}
+
+        public IJWTTokenRepository JWTTokenRepository { get;}
 
         public async Task<int>  CommitAsync()
         {
