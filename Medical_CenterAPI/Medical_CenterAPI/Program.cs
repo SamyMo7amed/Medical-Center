@@ -18,7 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
 
-
+builder.Configuration.AddJsonFile("Secrets.json");
 // add configuration of Authentication
 builder.Services.AddAuthentication(options =>
 {
