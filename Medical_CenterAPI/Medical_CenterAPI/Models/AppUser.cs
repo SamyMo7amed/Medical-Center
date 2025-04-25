@@ -12,6 +12,8 @@ namespace Medical_CenterAPI.Models
         public string Email { get; set; }
         public  bool IsEmailConfirmed { get; set; } 
 
+
+        public bool IsAccountConfirmed { get; set; }    
         public string Password {  get; set; }
         [Compare("Password")]   
 
