@@ -1,4 +1,5 @@
-﻿using Medical_CenterAPI.Models;
+﻿using Castle.Core.Smtp;
+using Medical_CenterAPI.Models;
 using Medical_CenterAPI.Repository;
 using Medical_CenterAPI.Service;
 using Medical_CenterAPI.UnitOfWork;
@@ -23,6 +24,7 @@ namespace Medical_CenterAPI.ExtenstionMethods
             services.AddScoped<IJWTTokenService, JWTTokenService>();
             services.AddScoped<IService<Patient>,PatientService>();
             services.AddScoped<IUnitOfWork,UnitOFWork>();
+            services.AddTransient<Medical_CenterAPI.Service.IEmailSender,SmtpEmailSender>();  
             //services.AddScoped<RoleManager<IdentityRole<Guid>>>();
 
 

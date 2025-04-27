@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 namespace Medical_CenterAPI.Service
 {
-    public class SmtpEmailSender : IEmailSender
+    public class SmtpEmailSender :IEmailSender
     {
 
         private readonly IConfiguration _config;
