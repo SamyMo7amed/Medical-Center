@@ -42,6 +42,12 @@ builder.Services.AddAuthentication(options =>
     };
     options.SaveToken=true;
 });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ManagerOnly", policy => policy.RequireClaim("Manager"));
+    options.AddPolicy("Doctor", policy => policy.RequireClaim("Doctor"));
+    options.AddPolicy("Assistant", policy => policy.RequireClaim("Assistant"));
+});
 
 builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
