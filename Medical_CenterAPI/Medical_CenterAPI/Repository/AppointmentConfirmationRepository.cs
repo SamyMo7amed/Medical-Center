@@ -1,37 +1,58 @@
-﻿using Medical_CenterAPI.Models;
+﻿using Medical_CenterAPI.Data;
+using Medical_CenterAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Medical_CenterAPI.Repository
 {
     public class AppointmentConfirmationRepository : IRepository<AppointmentConfirmation>
     {
-        public Task AddAsync(AppointmentConfirmation entity)
+         private readonly AppDbContext _context;    
+        public AppointmentConfirmationRepository(AppDbContext appDbContext) { 
+          this._context = appDbContext;         
+        }  
+        public async Task AddAsync(AppointmentConfirmation entity)
         {
-            throw new NotImplementedException();
+            await _context.AppointmentConfirmations.AddAsync(entity);
         }
 
         public void DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var appointmentConfirmation= _context.AppointmentConfirmations.FirstOrDefault(x => x.Id == id);
+            if (appointmentConfirmation != null) { 
+            _context.AppointmentConfirmations.Remove(appointmentConfirmation);
+            }
         }
 
-        public Task<IEnumerable<AppointmentConfirmation>> GetAllAsync()
+        public async Task<IEnumerable<AppointmentConfirmation>?> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var result = await _context.AppointmentConfirmations.ToListAsync();
+
+            return result;
+
+
         }
 
-        public Task<AppointmentConfirmation> GetByIdAsync(Guid id)
+        public async Task<AppointmentConfirmation?> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var item= await _context.AppointmentConfirmations.FirstOrDefaultAsync(x => x.Id == id);
+            return item;
+            
         }
 
         public void SaveChangesAsync()
         {
-            throw new NotImplementedException();
+          _context.SaveChanges();
         }
 
         public void UpdateAsync(AppointmentConfirmation entity)
         {
-            throw new NotImplementedException();
+            var updatedAppointmentConfirmation = _context.AppointmentConfirmations.FirstOrDefault(x => x.Id == entity.Id);
+             updatedAppointmentConfirmation.Appointment=entity.Appointment;
+            updatedAppointmentConfirmation.AppointmentId=entity.AppointmentId;
+            updatedAppointmentConfirmation.AssistantId=entity.AssistantId;
+            updatedAppointmentConfirmation.Assistant=entity.Assistant;
+            updatedAppointmentConfirmation.ConfirmationDate=entity.ConfirmationDate;
+            updatedAppointmentConfirmation.CreatedAt=entity.CreatedAt;
         }
     }
 }
