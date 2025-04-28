@@ -2,9 +2,11 @@
 using Castle.Core.Smtp;
 using Medical_CenterAPI.ModelDTO;
 using Medical_CenterAPI.Models;
+using Medical_CenterAPI.Service;
 using Medical_CenterAPI.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using System.ComponentModel.DataAnnotations;
@@ -18,10 +20,12 @@ namespace Medical_CenterAPI.Controllers
         private readonly  IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly Medical_CenterAPI.Service.IEmailSender emailSender;
+        
         public AccountController(IUnitOfWork unitOfWork,IMapper mapper, Medical_CenterAPI.Service.IEmailSender emailSender) {
             this.emailSender = emailSender; 
          this.unitOfWork = unitOfWork;                  
-        this.mapper = mapper;   
+        this.mapper = mapper;
+            
         }
 
         [AllowAnonymous]
@@ -139,6 +143,31 @@ namespace Medical_CenterAPI.Controllers
         }
 
 
+        [AllowAnonymous]
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await unitOfWork.UserManager.FindByEmailAsync(loginRequest.Email);
+                if (user == null)
+                {
+                    return Unauthorized("Invalid login details");
+                }
+                var passwordValid = await unitOfWork.UserManager.CheckPasswordAsync(user, loginRequest.Password);
+                if (!passwordValid)
+                {
+                    return Unauthorized("Invalid login details");
+                }
+                if (!user.EmailConfirmed)
+                {
+                    return Unauthorized("Email not confirmed");
+                }
+                return Ok("Login successful");
+
+            }
+            return BadRequest("Invalid login request");
+        }
 
 
 
@@ -146,6 +175,5 @@ namespace Medical_CenterAPI.Controllers
 
 
 
-
-    }
+        }
 }
