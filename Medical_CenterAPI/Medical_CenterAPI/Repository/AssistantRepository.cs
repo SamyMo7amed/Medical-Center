@@ -26,7 +26,7 @@ namespace Medical_CenterAPI.Repository
             }
         }
 
-        public async Task<IEnumerable<Assistant>?> GetAllAsync()
+        public async Task<IEnumerable<Assistant>> GetAllAsync()
         {
 
             var result= await appDbContext.Assistants.ToListAsync();  

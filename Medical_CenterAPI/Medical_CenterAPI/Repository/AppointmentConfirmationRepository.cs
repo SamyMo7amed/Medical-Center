@@ -23,7 +23,7 @@ namespace Medical_CenterAPI.Repository
             }
         }
 
-        public async Task<IEnumerable<AppointmentConfirmation>?> GetAllAsync()
+        public async Task<IEnumerable<AppointmentConfirmation>> GetAllAsync()
         {
             var result = await _context.AppointmentConfirmations.ToListAsync();
 

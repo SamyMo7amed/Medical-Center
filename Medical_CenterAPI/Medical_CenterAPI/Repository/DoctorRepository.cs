@@ -38,7 +38,7 @@ namespace Medical_CenterAPI.Repository
             
         }
 
-        public async Task<IEnumerable<Doctor>?> GetAllAsync()
+        public async Task<IEnumerable<Doctor>> GetAllAsync()
         {
            var Doctors= await appDbContext.Doctors.ToListAsync();
 

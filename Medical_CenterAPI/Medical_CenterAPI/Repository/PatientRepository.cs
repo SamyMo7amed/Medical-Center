@@ -1,37 +1,68 @@
-﻿using Medical_CenterAPI.Models;
+﻿using Medical_CenterAPI.Data;
+using Medical_CenterAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Medical_CenterAPI.Repository
 {
     public class PatientRepository : IRepository<Patient>
     {
-        public Task AddAsync(Patient entity)
+        private readonly AppDbContext appDbContext;
+
+        public PatientRepository(AppDbContext appDbContext) {
+        this.appDbContext = appDbContext;
+        }  
+        public async Task AddAsync(Patient entity)
         {
-            throw new NotImplementedException();
+            await appDbContext.AddAsync(entity);
+            
         }
 
         public void DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var user= appDbContext.Patients.FirstOrDefault(x => x.Id == id);
+            if (user != null) { 
+            
+                appDbContext.Patients.Remove(user); 
+            }
+            
         }
 
-        public Task<IEnumerable<Patient>> GetAllAsync()
+        public async Task<IEnumerable<Patient>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var users= await appDbContext.Patients.ToListAsync();
+            return users;   
         }
 
-        public Task<Patient> GetByIdAsync(Guid id)
+        public async Task<Patient?> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await appDbContext.Patients.FirstOrDefaultAsync(x=>x.Id == id);
+         
         }
 
         public void SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            appDbContext.SaveChanges();
         }
 
         public void UpdateAsync(Patient entity)
         {
-            throw new NotImplementedException();
+            var user = appDbContext.Patients.FirstOrDefault(x => x.Id == entity.Id);
+            if (user != null)
+            {
+                user.UserName = entity.UserName;
+                user.Password = entity.Password;
+                user.Email = entity.Email;
+                user.EmailConfirmed = entity.EmailConfirmed;
+                user.ConfirmToken = entity.ConfirmToken;
+                user.Appointments = entity.Appointments;
+                user.ConfirmPassword = entity.ConfirmPassword;
+                user.PhoneNumber = entity.PhoneNumber;
+                user.Age=entity.Age;
+                user.ImagePath = entity.ImagePath;
+
+
+            }
+
         }
     }
 }

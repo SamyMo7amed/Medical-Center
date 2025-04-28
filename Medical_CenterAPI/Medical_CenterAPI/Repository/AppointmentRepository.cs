@@ -27,7 +27,7 @@ namespace Medical_CenterAPI.Repository
             
         }
 
-        public async Task<IEnumerable<Appointment>?> GetAllAsync()
+        public async Task<IEnumerable<Appointment>> GetAllAsync()
         {
             var appointments= await _context.Appointments.ToListAsync();    
 
