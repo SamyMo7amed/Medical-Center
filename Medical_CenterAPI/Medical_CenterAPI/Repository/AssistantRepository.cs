@@ -1,37 +1,71 @@
-﻿using Medical_CenterAPI.Models;
+﻿using Medical_CenterAPI.Data;
+using Medical_CenterAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Medical_CenterAPI.Repository
 {
     public class AssistantRepository : IRepository<Assistant>
     {
-        public Task AddAsync(Assistant entity)
+        private readonly AppDbContext appDbContext;
+
+        public AssistantRepository(AppDbContext appDbContext) {
+        this.appDbContext = appDbContext;
+                }    
+        public async Task AddAsync(Assistant entity)
         {
-            throw new NotImplementedException();
+            await appDbContext.Assistants.AddAsync(entity);
+           
         }
 
-        public void DeleteAsync(Guid id)
+        public async void DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var user= await appDbContext.Assistants.FirstOrDefaultAsync(x => x.Id == id);
+            if (user != null)
+            {
+                appDbContext.Remove(user);
+            }
         }
 
-        public Task<IEnumerable<Assistant>> GetAllAsync()
+        public async Task<IEnumerable<Assistant>> GetAllAsync()
         {
-            throw new NotImplementedException();
+
+            var result= await appDbContext.Assistants.ToListAsync();  
+            return result;
+
+           
+           
         }
 
-        public Task<Assistant> GetByIdAsync(Guid id)
+        public async Task<Assistant?> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+
+            var user = await appDbContext.Assistants.FirstOrDefaultAsync(x => x.Id == id);
+          
+                return user;
         }
 
-        public void SaveChangesAsync()
+        public async void SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await appDbContext.SaveChangesAsync();
         }
 
         public void UpdateAsync(Assistant entity)
         {
-            throw new NotImplementedException();
+            var user = appDbContext.Assistants.FirstOrDefault(x => x.Id == entity.Id);
+            if (user != null)
+            {
+                user.UserName = entity.UserName;
+                user.Password = entity.Password;
+                user.Email = entity.Email;
+                user.EmailConfirmed = entity.EmailConfirmed;
+                user.ConfirmToken = entity.ConfirmToken;
+                user.ConfirmPassword = entity.ConfirmPassword;
+                user.PhoneNumber = entity.PhoneNumber;
+                user.ImagePath = entity.ImagePath;
+
+
+            }
+
         }
     }
 }

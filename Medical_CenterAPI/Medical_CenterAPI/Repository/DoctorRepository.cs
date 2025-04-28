@@ -45,7 +45,7 @@ namespace Medical_CenterAPI.Repository
             return Doctors; 
         }
 
-        public async Task<Doctor> GetByIdAsync(Guid id)
+        public async Task<Doctor?> GetByIdAsync(Guid id)
         {
             var user = await appDbContext.Doctors.FirstOrDefaultAsync(x => x.Id == id);
 
