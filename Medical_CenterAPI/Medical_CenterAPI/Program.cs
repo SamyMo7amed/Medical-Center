@@ -81,5 +81,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseStaticFiles();   // to make wwwroot work
+
 
 app.Run();

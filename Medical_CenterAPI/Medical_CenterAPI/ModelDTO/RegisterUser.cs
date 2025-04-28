@@ -19,6 +19,7 @@ namespace Medical_CenterAPI.ModelDTO
         
         public string? ImagePath { get; set; }   
 
+        public IFormFile? image {  get; set; }  
 
 
         public string PhoneNumber { get; set; }

@@ -20,17 +20,19 @@ namespace Medical_CenterAPI.Controllers
         private readonly  IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly Medical_CenterAPI.Service.IEmailSender emailSender;
+        private readonly IWebHostEnvironment webHostEnvironment;            
         
-        public AccountController(IUnitOfWork unitOfWork,IMapper mapper, Medical_CenterAPI.Service.IEmailSender emailSender) {
+        public AccountController(IUnitOfWork unitOfWork,IMapper mapper, Medical_CenterAPI.Service.IEmailSender emailSender,IWebHostEnvironment webHostEnvironment) {
             this.emailSender = emailSender; 
          this.unitOfWork = unitOfWork;                  
         this.mapper = mapper;
+            this.webHostEnvironment = webHostEnvironment;
             
         }
 
         [AllowAnonymous]
         [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromBody]RegisterUser registerUser)
+        public async Task<IActionResult> Register([FromForm]RegisterUser registerUser)
          {
             if (ModelState.IsValid) {
 
@@ -41,11 +43,26 @@ namespace Medical_CenterAPI.Controllers
                     ModelState.AddModelError("", "The email already exists.");
                     return BadRequest(ModelState);
                 }
-                else { 
-                    var result= await unitOfWork.UserManager.CreateAsync(User,User.Password);
+                else {
+
+                    // to add image 
+
+                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                    uniqueFileName += Path.GetExtension(registerUser.image.FileName);
+                     
+                    string imageFullPath=webHostEnvironment.WebRootPath + "/Images"+uniqueFileName;   
+
+                    User.ImagePath = imageFullPath; 
+
+                    var result = await unitOfWork.UserManager.CreateAsync(User,User.Password);
                     if (result.Succeeded)
                     {
-                      await unitOfWork.CommitAsync();    
+                        using (var stream = System.IO.File.Create(imageFullPath))
+                        {
+                            registerUser.image.CopyTo(stream);
+                        }
+
+                        await unitOfWork.CommitAsync();    
 
                         return Ok(new { Message = "User registered successfully" });
                     }
