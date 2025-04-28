@@ -17,6 +17,7 @@ namespace Medical_CenterAPI.ModelDTO
         [Compare("Password")]   
         public string ConfirmPassword {  get; set; }
         
+        public string? ImagePath { get; set; }   
 
 
 

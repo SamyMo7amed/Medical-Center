@@ -12,7 +12,7 @@ namespace Medical_CenterAPI.ExtenstionMethods
         public static void RegisterDI(this IServiceCollection services)
         {
             services.AddScoped<IRepository<Appointment>,AppointmentRepository>();
-            services.AddScoped<IRepository<Doctor>,DoctorRepositrory>();
+            services.AddScoped<IRepository<Doctor>,DoctorRepository>();
             services.AddScoped<IRepository<AppointmentConfirmation>,AppointmentConfirmationRepository>();
             services.AddScoped<IRepository<Assistant>,AssistantRepository>();
             services.AddScoped<IRepository<Patient>,PatientRepository>();

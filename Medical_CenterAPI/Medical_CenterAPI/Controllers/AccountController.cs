@@ -45,7 +45,7 @@ namespace Medical_CenterAPI.Controllers
                     var result= await unitOfWork.UserManager.CreateAsync(User,User.Password);
                     if (result.Succeeded)
                     {
-                       
+                      await unitOfWork.CommitAsync();    
 
                         return Ok(new { Message = "User registered successfully" });
                     }
@@ -83,7 +83,7 @@ namespace Medical_CenterAPI.Controllers
                         await unitOfWork.CommitAsync();
 
                         try
-                        { await emailSender.SendEmailAsync(result.Email, "Verify Email", "Please verify your email by clicking on this link <a href='https://localhost:7251/api/Account/VerifyEmail?Id=" + result.Id.ToString() + "&Token=" + Uri.EscapeDataString(result.ConfirmToken) + "'>Verify EMAIL</a>");
+                        { await emailSender.SendEmailAsync(result.Email, "Verify Email", "Please verify your email by clicking on this link <a href='https://localhost:7251/api/Account/VerifyEmailToken?Id=" + result.Id.ToString() + "&Token=" + Uri.EscapeDataString(result.ConfirmToken) + "'>Verify EMAIL</a>");
 
                                 }
                         catch(Exception ex)
@@ -121,7 +121,7 @@ namespace Medical_CenterAPI.Controllers
 
         }
 
-        [HttpGet("VerifyEmail")]
+        [HttpGet("VerifyEmailToken")]
 
         public async Task<IActionResult>  VerifyEmail(string Id,string token)
         {
@@ -157,16 +157,22 @@ namespace Medical_CenterAPI.Controllers
                 var passwordValid = await unitOfWork.UserManager.CheckPasswordAsync(user, loginRequest.Password);
                 if (!passwordValid)
                 {
-                    return Unauthorized("Invalid login details");
+
+                    ModelState.AddModelError("", "The Email Or Password Is Wrong");
+                    return BadRequest(ModelState);
                 }
                 if (!user.EmailConfirmed)
                 {
-                    return Unauthorized("Email not confirmed");
+                    return BadRequest("Email not confirmed");
                 }
-                return Ok("Login successful");
+                string token = await unitOfWork.JWTTokenRepository.GetJWTTokenAsync(user);
+
+                return Ok(token);
 
             }
-            return BadRequest("Invalid login request");
+
+            
+            return BadRequest(ModelState);
         }
 
 
