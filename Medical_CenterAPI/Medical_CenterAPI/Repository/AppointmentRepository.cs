@@ -1,37 +1,64 @@
-﻿using Medical_CenterAPI.Models;
+﻿using Medical_CenterAPI.Data;
+using Medical_CenterAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Medical_CenterAPI.Repository
 {
     public class AppointmentRepository : IRepository<Appointment>
     {
-        public Task AddAsync(Appointment entity)
+
+        private readonly AppDbContext _context; 
+        public AppointmentRepository(AppDbContext appDbContext) { 
+        this._context = appDbContext;   
+        }  
+        public async Task AddAsync(Appointment entity)
         {
-            throw new NotImplementedException();
+            await this._context.Appointments.AddAsync(entity);                       
         }
 
         public void DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+
+            var appointment = _context.Appointments.FirstOrDefault(x => x.AppointmentId == id);
+            if (appointment != null) { 
+            
+            _context.Appointments.Remove(appointment);                      
+            }
+            
         }
 
-        public Task<IEnumerable<Appointment>> GetAllAsync()
+        public async Task<IEnumerable<Appointment>?> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var appointments= await _context.Appointments.ToListAsync();    
+
+            return appointments;
         }
 
-        public Task<Appointment> GetByIdAsync(Guid id)
+        public async Task<Appointment?> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var appointment = await _context.Appointments.FirstOrDefaultAsync(x=>x.AppointmentId==id );
+
+            return appointment;
         }
 
         public void SaveChangesAsync()
         {
-            throw new NotImplementedException();
-        }
+            _context.SaveChanges();        }
 
         public void UpdateAsync(Appointment entity)
         {
-            throw new NotImplementedException();
+             var appointment =  _context.Appointments.FirstOrDefault(x => x.AppointmentId == entity.AppointmentId);
+
+            appointment.Assistant = entity.Assistant;   
+            appointment.AssistantId = entity.AssistantId;
+            appointment.AppointmentConfirmationId = entity.AppointmentConfirmationId;                        
+            appointment.AppointmentConfirmation=entity.AppointmentConfirmation; 
+            appointment.AppointmentDate = entity.AppointmentDate;       
+            appointment.CreatedAt = entity.CreatedAt;               
+            appointment.Doctor = entity.Doctor; 
+            appointment.DoctorId = entity.DoctorId; 
+            appointment.Patiant=entity.Patiant;
+            appointment.PatiantId = entity.PatiantId;
         }
     }
 }
