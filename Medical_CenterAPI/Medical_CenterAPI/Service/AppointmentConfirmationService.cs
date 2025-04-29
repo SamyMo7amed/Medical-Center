@@ -1,37 +1,52 @@
 ﻿using Medical_CenterAPI.Models;
+using Medical_CenterAPI.UnitOfWork;
 
 namespace Medical_CenterAPI.Service
 {
     public class AppointmentConfirmationService : IService<AppointmentConfirmation>
     {
-        public Task AddAsync(AppointmentConfirmation entity)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public AppointmentConfirmationService(IUnitOfWork unitOfWork)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
         }
 
-        public void DeleteAsync(Guid id)
+        public async Task AddAsync(AppointmentConfirmation entity)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.AppointmentsConfirmations.AddAsync(entity);
+            await _unitOfWork.CommitAsync();
         }
 
-        public Task<IEnumerable<AppointmentConfirmation>> GetAllAsync()
+        public async void DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var confirmation = await _unitOfWork.AppointmentsConfirmations.GetByIdAsync(id);
+            if (confirmation != null)
+            {
+                 _unitOfWork.AppointmentsConfirmations.DeleteAsync(id);
+                await _unitOfWork.CommitAsync();
+            }
         }
 
-        public Task<AppointmentConfirmation> GetByIdAsync(Guid id)
+        public async Task<IEnumerable<AppointmentConfirmation>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.AppointmentsConfirmations.GetAllAsync();
         }
 
-        public void SaveChangesAsync()
+        public async Task<AppointmentConfirmation> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.AppointmentsConfirmations.GetByIdAsync(id);
         }
 
-        public void UpdateAsync(AppointmentConfirmation entity)
+        public async void SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async void UpdateAsync(AppointmentConfirmation entity)
+        {
+             _unitOfWork.AppointmentsConfirmations.UpdateAsync(entity);
+            await _unitOfWork.CommitAsync();
         }
     }
 }
