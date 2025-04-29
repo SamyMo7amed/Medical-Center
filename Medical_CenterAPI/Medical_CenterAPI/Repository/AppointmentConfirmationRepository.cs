@@ -44,9 +44,9 @@ namespace Medical_CenterAPI.Repository
           _context.SaveChanges();
         }
 
-        public void UpdateAsync(AppointmentConfirmation entity)
+        public async Task UpdateAsync(AppointmentConfirmation entity)
         {
-            var updatedAppointmentConfirmation = _context.AppointmentConfirmations.FirstOrDefault(x => x.Id == entity.Id);
+            var updatedAppointmentConfirmation = await _context.AppointmentConfirmations.FirstOrDefaultAsync(x => x.Id == entity.Id);
              updatedAppointmentConfirmation.Appointment=entity.Appointment;
             updatedAppointmentConfirmation.AppointmentId=entity.AppointmentId;
             updatedAppointmentConfirmation.AssistantId=entity.AssistantId;

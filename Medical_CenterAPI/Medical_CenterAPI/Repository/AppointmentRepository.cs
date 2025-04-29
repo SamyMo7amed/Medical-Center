@@ -45,9 +45,9 @@ namespace Medical_CenterAPI.Repository
         {
             _context.SaveChanges();        }
 
-        public void UpdateAsync(Appointment entity)
+        public async Task UpdateAsync(Appointment entity)
         {
-             var appointment =  _context.Appointments.FirstOrDefault(x => x.AppointmentId == entity.AppointmentId);
+             var appointment =  await _context.Appointments.FirstOrDefaultAsync(x => x.AppointmentId == entity.AppointmentId);
 
             appointment.Assistant = entity.Assistant;   
             appointment.AssistantId = entity.AssistantId;

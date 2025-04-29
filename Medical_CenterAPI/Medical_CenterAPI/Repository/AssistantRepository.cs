@@ -49,9 +49,9 @@ namespace Medical_CenterAPI.Repository
             await appDbContext.SaveChangesAsync();
         }
 
-        public void UpdateAsync(Assistant entity)
+        public async Task UpdateAsync(Assistant entity)
         {
-            var user = appDbContext.Assistants.FirstOrDefault(x => x.Id == entity.Id);
+            var user = await appDbContext.Assistants.FirstOrDefaultAsync(x => x.Id == entity.Id);
             if (user != null)
             {
                 user.UserName = entity.UserName;

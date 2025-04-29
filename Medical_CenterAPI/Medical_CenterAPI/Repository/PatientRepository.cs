@@ -1,5 +1,6 @@
 ﻿using Medical_CenterAPI.Data;
 using Medical_CenterAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Medical_CenterAPI.Repository
@@ -44,9 +45,9 @@ namespace Medical_CenterAPI.Repository
             appDbContext.SaveChanges();
         }
 
-        public void UpdateAsync(Patient entity)
+        public async Task UpdateAsync(Patient entity)
         {
-            var user = appDbContext.Patients.FirstOrDefault(x => x.Id == entity.Id);
+            var user = await appDbContext.Patients.FirstOrDefaultAsync(x => x.Id == entity.Id);
             if (user != null)
             {
                 user.UserName = entity.UserName;

@@ -7,7 +7,7 @@ namespace Medical_CenterAPI.Repository
         Task<T> GetByIdAsync(Guid id ); 
         Task<IEnumerable<T>> GetAllAsync();
         Task AddAsync( T entity );
-        void UpdateAsync( T entity );   
+        Task UpdateAsync( T entity );   
         void DeleteAsync( Guid id );
         void SaveChangesAsync();
 

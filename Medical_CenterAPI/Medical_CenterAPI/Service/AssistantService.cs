@@ -18,7 +18,7 @@ namespace Medical_CenterAPI.Service
             await _unitOfWork.CommitAsync();
         }
 
-        public async void DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             var assistant = await _unitOfWork.Assistants.GetByIdAsync(id);
             if (assistant != null)
@@ -33,19 +33,19 @@ namespace Medical_CenterAPI.Service
             return await _unitOfWork.Assistants.GetAllAsync();
         }
 
-        public async Task<Assistant> GetByIdAsync(Guid id)
+        public async Task<Assistant?> GetByIdAsync(Guid id)
         {
             return await _unitOfWork.Assistants.GetByIdAsync(id);
         }
 
-        public async void SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
             await _unitOfWork.CommitAsync();
         }
 
-        public async void UpdateAsync(Assistant entity)
+        public async Task UpdateAsync(Assistant entity)
         {
-            _unitOfWork.Assistants.UpdateAsync(entity);
+          await  _unitOfWork.Assistants.UpdateAsync(entity);
             await _unitOfWork.CommitAsync();
         }
     }
