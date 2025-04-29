@@ -1,4 +1,6 @@
-﻿using Medical_CenterAPI.Models;
+﻿using AutoMapper;
+using Medical_CenterAPI.ModelDTO;
+using Medical_CenterAPI.Models;
 using Medical_CenterAPI.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -12,10 +14,11 @@ namespace Medical_CenterAPI.Controllers
     public class AppointmentController : ControllerBase
     {
         private readonly IService<Appointment> _service;
+        private readonly IMapper mapper;
 
 
-        public AppointmentController(IService<Appointment> service)
-        {
+        public AppointmentController(IService<Appointment> service,IMapper mapper)
+        {this.mapper = mapper;  
             _service = service;
         }
 
@@ -54,10 +57,10 @@ namespace Medical_CenterAPI.Controllers
 
 
         [HttpPost("Add")]
-        public async Task<IActionResult> Add([FromBody]Appointment appointment)
+        public async Task<IActionResult> Add([FromBody]AppointmentDTO appointment1)
 
         {
-
+            var appointment = mapper.Map<Appointment>(appointment1);
              var app= await _service.GetByIdAsync(appointment.AppointmentId);
             if (app == null)
             {
@@ -79,23 +82,22 @@ namespace Medical_CenterAPI.Controllers
         {
 
             var app=await _service.GetByIdAsync(id);
-
             if(app == null)
             {
-                return  Ok(app);
-
+            await _service.DeleteAsync(id);
             }
 
-            await _service.DeleteAsync(id);
-            return Ok(app.ToString());
+              
+            return Ok("Delete Successfully");
 
 
         }
 
         [HttpPost("Update")]
 
-        public async Task<IActionResult> Update([FromBody] Appointment appointment)
+        public async Task<IActionResult> Update([FromBody] AppointmentDTO appointment1)
         {
+            var appointment = mapper.Map<Appointment>(appointment1);
             await _service.UpdateAsync(appointment);
             return Ok("Successful");
 

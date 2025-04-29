@@ -30,6 +30,11 @@ namespace Medical_CenterAPI.Models
         public virtual Assistant Assistant { get; set; }
 
         public DateTime ConfirmationDate { get; set; }
+          [ForeignKey(nameof(patientId))]
+        public virtual Patient? Patient { get; set; }
+
+        
+        public Guid patientId { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 

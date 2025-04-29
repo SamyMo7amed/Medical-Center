@@ -10,6 +10,11 @@ namespace Medical_CenterAPI.Data
         public MappingFilles() {
             CreateMap<Patient, RegisterUser>();
             CreateMap<RegisterUser,Patient>();
+
+            CreateMap<Appointment,AppointmentDTO>();  
+            CreateMap<AppointmentDTO, Appointment>();
+            CreateMap<AppointmentConfirmationDTO, AppointmentConfirmation>();   
+            CreateMap<AppointmentConfirmation, AppointmentConfirmationDTO>();   
         }  
     }
 }
