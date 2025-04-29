@@ -1,37 +1,52 @@
 ﻿using Medical_CenterAPI.Models;
+using Medical_CenterAPI.UnitOfWork;
 
 namespace Medical_CenterAPI.Service
 {
     public class AssistantService : IService<Assistant>
     {
-        public Task AddAsync(Assistant entity)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public AssistantService(IUnitOfWork unitOfWork)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
         }
 
-        public void DeleteAsync(Guid id)
+        public async Task AddAsync(Assistant entity)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.Assistants.AddAsync(entity);
+            await _unitOfWork.CommitAsync();
         }
 
-        public Task<IEnumerable<Assistant>> GetAllAsync()
+        public async void DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var assistant = await _unitOfWork.Assistants.GetByIdAsync(id);
+            if (assistant != null)
+            {
+                 _unitOfWork.Assistants.DeleteAsync(id);
+                await _unitOfWork.CommitAsync();
+            }
         }
 
-        public Task<Assistant> GetByIdAsync(Guid id)
+        public async Task<IEnumerable<Assistant>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.Assistants.GetAllAsync();
         }
 
-        public void SaveChangesAsync()
+        public async Task<Assistant> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.Assistants.GetByIdAsync(id);
         }
 
-        public void UpdateAsync(Assistant entity)
+        public async void SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async void UpdateAsync(Assistant entity)
+        {
+            _unitOfWork.Assistants.UpdateAsync(entity);
+            await _unitOfWork.CommitAsync();
         }
     }
 }

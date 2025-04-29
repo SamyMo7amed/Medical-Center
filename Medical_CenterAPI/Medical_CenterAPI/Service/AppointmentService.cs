@@ -1,37 +1,52 @@
 ﻿using Medical_CenterAPI.Models;
+using Medical_CenterAPI.UnitOfWork;
 
 namespace Medical_CenterAPI.Service
 {
     public class AppointmentService : IService<Appointment>
     {
-        public Task AddAsync(Appointment entity)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public AppointmentService(IUnitOfWork unitOfWork)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
         }
 
-        public void DeleteAsync(Guid id)
+        public async Task AddAsync(Appointment entity)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.Appointments.AddAsync(entity);
+            await _unitOfWork.CommitAsync();
         }
 
-        public Task<IEnumerable<Appointment>> GetAllAsync()
+        public async void DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var appointment = await _unitOfWork.Appointments.GetByIdAsync(id);
+            if (appointment != null)
+            {
+                 _unitOfWork.Appointments.DeleteAsync(id);
+                await _unitOfWork.CommitAsync();
+            }
         }
 
-        public Task<Appointment> GetByIdAsync(Guid id)
+        public async Task<IEnumerable<Appointment>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.Appointments.GetAllAsync();
         }
 
-        public void SaveChangesAsync()
+        public async Task<Appointment> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.Appointments.GetByIdAsync(id);
         }
 
-        public void UpdateAsync(Appointment entity)
+        public async void SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async void UpdateAsync(Appointment entity)
+        {
+             _unitOfWork.Appointments.UpdateAsync(entity);
+            await _unitOfWork.CommitAsync();
         }
     }
 }

@@ -1,37 +1,54 @@
 ﻿using Medical_CenterAPI.Models;
+using Medical_CenterAPI.UnitOfWork;
 
 namespace Medical_CenterAPI.Service
 {
     public class PatientService : IService<Patient>
     {
-        public Task AddAsync(Patient entity)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public PatientService(IUnitOfWork unitOfWork)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
         }
 
-        public void DeleteAsync(Guid id)
+        public async Task AddAsync(Patient entity)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.Patients.AddAsync(entity);
+            await _unitOfWork.CommitAsync();
         }
 
-        public Task<IEnumerable<Patient>> GetAllAsync()
+        public async void DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var patient = await _unitOfWork.Patients.GetByIdAsync(id);
+            if (patient != null)
+            {
+                 _unitOfWork.Patients.DeleteAsync(id);
+                await _unitOfWork.CommitAsync();
+            }
         }
 
-        public Task<Patient> GetByIdAsync(Guid id)
+
+        public async Task<IEnumerable<Patient>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.Patients.GetAllAsync();
         }
 
-        public void SaveChangesAsync()
+        public async Task<Patient> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.Patients.GetByIdAsync(id);
         }
 
-        public void UpdateAsync(Patient entity)
+        public async void SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _unitOfWork.CommitAsync();
         }
+
+        public async void UpdateAsync(Patient entity)
+        {
+             _unitOfWork.Patients.UpdateAsync(entity);
+            await _unitOfWork.CommitAsync();
+        }
+
     }
 }

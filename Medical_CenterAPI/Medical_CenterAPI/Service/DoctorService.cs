@@ -1,37 +1,59 @@
 ﻿using Medical_CenterAPI.Models;
+using Medical_CenterAPI.UnitOfWork;
 
 namespace Medical_CenterAPI.Service
 {
     public class DoctorService : IService<Doctor>
     {
-        public Task AddAsync(Doctor entity)
+
+        private readonly IUnitOfWork _unitOfWork;
+
+        public DoctorService(IUnitOfWork unitOfWork)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
+        }
+       
+        public async Task AddAsync(Doctor entity)
+        {
+            await _unitOfWork.Doctors.AddAsync(entity);
+            await _unitOfWork.CommitAsync();
         }
 
-        public void DeleteAsync(Guid id)
+
+        public async void DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var doctor = await _unitOfWork.Doctors.GetByIdAsync(id);
+            if (doctor != null)
+            {
+                 _unitOfWork.Doctors.DeleteAsync(id);
+                await _unitOfWork.CommitAsync();
+            }
         }
 
-        public Task<IEnumerable<Doctor>> GetAllAsync()
+
+        public async Task<IEnumerable<Doctor>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.Doctors.GetAllAsync();
         }
 
-        public Task<Doctor> GetByIdAsync(Guid id)
+        
+        public async Task<Doctor> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.Doctors.GetByIdAsync(id);
         }
 
-        public void SaveChangesAsync()
+
+        public async void SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _unitOfWork.CommitAsync();
         }
 
-        public void UpdateAsync(Doctor entity)
+        public async void UpdateAsync(Doctor entity)
         {
-            throw new NotImplementedException();
+            _unitOfWork.Doctors.UpdateAsync(entity);
+            await _unitOfWork.CommitAsync();
         }
+
+
     }
 }
