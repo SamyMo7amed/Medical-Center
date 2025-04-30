@@ -8,8 +8,8 @@ namespace Medical_CenterAPI.Repository
         Task<IEnumerable<T>> GetAllAsync();
         Task AddAsync( T entity );
         Task UpdateAsync( T entity );   
-        void DeleteAsync( Guid id );
-        void SaveChangesAsync();
+        Task DeleteAsync( Guid id );
+        Task SaveChangesAsync();
 
     }
     

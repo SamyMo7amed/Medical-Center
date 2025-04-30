@@ -28,9 +28,9 @@ namespace Medical_CenterAPI.Repository
         }
         
 
-        public async void DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-              var result=appDbContext.Doctors.FirstOrDefault(x => x.Id == id);
+              var result=await appDbContext.Doctors.FirstOrDefaultAsync(x => x.Id == id);
             if (result != null)
             {
                 appDbContext.Doctors.Remove(result);
@@ -52,7 +52,7 @@ namespace Medical_CenterAPI.Repository
             return user;
         }
 
-        public async void SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
           await appDbContext.SaveChangesAsync();
         }

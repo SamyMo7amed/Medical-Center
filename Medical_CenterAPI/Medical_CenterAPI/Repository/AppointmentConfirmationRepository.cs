@@ -15,9 +15,9 @@ namespace Medical_CenterAPI.Repository
             await _context.AppointmentConfirmations.AddAsync(entity);
         }
 
-        public void DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            var appointmentConfirmation= _context.AppointmentConfirmations.FirstOrDefault(x => x.Id == id);
+            var appointmentConfirmation=await  _context.AppointmentConfirmations.FirstOrDefaultAsync(x => x.Id == id);
             if (appointmentConfirmation != null) { 
             _context.AppointmentConfirmations.Remove(appointmentConfirmation);
             }
@@ -39,9 +39,9 @@ namespace Medical_CenterAPI.Repository
             
         }
 
-        public void SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-          _context.SaveChanges();
+           await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(AppointmentConfirmation entity)

@@ -16,10 +16,10 @@ namespace Medical_CenterAPI.Repository
             await this._context.Appointments.AddAsync(entity);                       
         }
 
-        public void DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
 
-            var appointment = _context.Appointments.FirstOrDefault(x => x.AppointmentId == id);
+            var appointment =await _context.Appointments.FirstOrDefaultAsync(x => x.AppointmentId == id);
             if (appointment != null) { 
             
             _context.Appointments.Remove(appointment);                      
@@ -41,9 +41,9 @@ namespace Medical_CenterAPI.Repository
             return appointment;
         }
 
-        public void SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            _context.SaveChanges();        }
+          await  _context.SaveChangesAsync();        }
 
         public async Task UpdateAsync(Appointment entity)
         {

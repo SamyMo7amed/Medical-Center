@@ -6,6 +6,7 @@ using Medical_CenterAPI.Service;
 using Medical_CenterAPI.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
@@ -50,7 +51,7 @@ namespace Medical_CenterAPI.Controllers
                     var uniqueFileName = Guid.NewGuid().ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
                     uniqueFileName += Path.GetExtension(registerUser.image.FileName);
                      
-                    string imageFullPath=webHostEnvironment.WebRootPath + "/Images"+uniqueFileName;   
+                    string imageFullPath=webHostEnvironment.WebRootPath + "/Images/"+uniqueFileName;   
 
                     User.ImagePath = imageFullPath; 
 
@@ -82,8 +83,51 @@ namespace Medical_CenterAPI.Controllers
             return  BadRequest(ModelState);
 
         }
+        [HttpPost("AddEmployee")]
+
+        public async Task<IActionResult> RegisterEmployee([FromForm]EmployeeDTO employeeDTO)
+        {
+            if (!ModelState.IsValid) {
+                AppUser emp;
+               
+                if (employeeDTO.Specialization == null) {
+                    var emp2 = mapper.Map<Assistant>(employeeDTO);
+                    emp=mapper.Map<AppUser>(emp2); 
+                }
+                else{ var emp2 = mapper.Map<Doctor>(employeeDTO);
+                    emp=mapper.Map<AppUser>(emp2);
+                }
+                var check=await unitOfWork.UserManager.FindByEmailAsync(employeeDTO.Email);
+                if (check != null) {
+
+                    ModelState.AddModelError("", "This Employee is Exist");
+                return BadRequest(ModelState);
+                }
+                else
+                {
+                    // add image
+                    var uniqueFilleName=Guid.NewGuid().ToString()+"_" + DateTime.Now.ToString();
+                    uniqueFilleName += Path.GetFileName(employeeDTO.image.FileName);
+
+                    string ImageFullPath = webHostEnvironment.WebRootPath + "/Images/" + uniqueFilleName;
+                    var result = await unitOfWork.UserManager.CreateAsync(emp, employeeDTO.Password);
+                    using(var stream = System.IO.File.Create(ImageFullPath))
+                    {
+                        employeeDTO.image.CopyTo(stream);
+                    }
+                    await unitOfWork.CommitAsync();
+                    return Ok("Employee registered successfully");
+                }
 
 
+            
+            }
+            else
+            {
+
+                return BadRequest(ModelState);
+            }
+        }
         [HttpPost("ConfirmEmail")]
         public async Task<IActionResult> SaveRegister(RegisterUser UserFromRequest)
         {
@@ -193,7 +237,30 @@ namespace Medical_CenterAPI.Controllers
         }
 
 
+        [HttpDelete("DeleteEmployee")]
+        public async Task<IActionResult> Delete( [FromBody]Guid id)
+        {
+           
+           var DepDoctors=await unitOfWork.Doctors.GetByIdAsync(id);
+            var DepAssistants=await unitOfWork.Assistants.GetByIdAsync(id);  
+            if(DepDoctors == null && DepAssistants==null)
+            {
+                return Ok();
+            }
+            else if(DepDoctors==null && DepAssistants != null){
+               await  unitOfWork.Assistants.DeleteAsync(id);
+                await unitOfWork.Assistants.SaveChangesAsync();
+            }
+            else if(DepDoctors != null && DepAssistants == null)
+            {
+                await unitOfWork.Doctors.DeleteAsync(id);
+                await unitOfWork.Doctors.SaveChangesAsync();
 
+            }
+
+            return Ok();
+
+        }
 
 
 
