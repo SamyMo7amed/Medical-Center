@@ -18,44 +18,47 @@ namespace Medical_CenterAPI.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly  IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly Medical_CenterAPI.Service.IEmailSender emailSender;
-        private readonly IWebHostEnvironment webHostEnvironment;            
-        
-        public AccountController(IUnitOfWork unitOfWork,IMapper mapper, Medical_CenterAPI.Service.IEmailSender emailSender,IWebHostEnvironment webHostEnvironment) {
-            this.emailSender = emailSender; 
-         this.unitOfWork = unitOfWork;                  
-        this.mapper = mapper;
+        private readonly IWebHostEnvironment webHostEnvironment;
+
+        public AccountController(IUnitOfWork unitOfWork, IMapper mapper, Medical_CenterAPI.Service.IEmailSender emailSender, IWebHostEnvironment webHostEnvironment)
+        {
+            this.emailSender = emailSender;
+            this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
             this.webHostEnvironment = webHostEnvironment;
-            
+
         }
 
         [AllowAnonymous]
         [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromForm]RegisterUser registerUser)
-         {
-            if (ModelState.IsValid) {
+        public async Task<IActionResult> Register([FromForm] RegisterUser registerUser)
+        {
+            if (ModelState.IsValid)
+            {
 
-                var User = mapper.Map<Patient>(registerUser);   
-                var check= await unitOfWork.UserManager.FindByEmailAsync(registerUser.Email); 
-                if(check != null)
+                var User = mapper.Map<Patient>(registerUser);
+                var check = await unitOfWork.UserManager.FindByEmailAsync(registerUser.Email);
+                if (check != null)
                 {
                     ModelState.AddModelError("", "The email already exists.");
                     return BadRequest(ModelState);
                 }
-                else {
+                else
+                {
 
                     // to add image 
 
                     var uniqueFileName = Guid.NewGuid().ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
                     uniqueFileName += Path.GetExtension(registerUser.image.FileName);
-                     
-                    string imageFullPath=webHostEnvironment.WebRootPath + "/Images/"+uniqueFileName;   
 
-                    User.ImagePath = imageFullPath; 
+                    string imageFullPath = webHostEnvironment.WebRootPath + "/Images/" + uniqueFileName;
 
-                    var result = await unitOfWork.UserManager.CreateAsync(User,User.Password);
+                    User.ImagePath = imageFullPath;
+
+                    var result = await unitOfWork.UserManager.CreateAsync(User, User.Password);
                     if (result.Succeeded)
                     {
                         using (var stream = System.IO.File.Create(imageFullPath))
@@ -63,7 +66,7 @@ namespace Medical_CenterAPI.Controllers
                             registerUser.image.CopyTo(stream);
                         }
 
-                        await unitOfWork.CommitAsync();    
+                        await unitOfWork.CommitAsync();
 
                         return Ok(new { Message = "User registered successfully" });
                     }
@@ -72,46 +75,51 @@ namespace Medical_CenterAPI.Controllers
                         return BadRequest(result.Errors);
                     }
                 }
-            
-             
-            
-           
-            
-            
+
+
+
+
+
+
             }
 
-            return  BadRequest(ModelState);
+            return BadRequest(ModelState);
 
         }
         [HttpPost("AddEmployee")]
 
-        public async Task<IActionResult> RegisterEmployee([FromForm]EmployeeDTO employeeDTO)
+        public async Task<IActionResult> RegisterEmployee([FromForm] EmployeeDTO employeeDTO)
         {
-            if (!ModelState.IsValid) {
+            if (!ModelState.IsValid)
+            {
                 AppUser emp;
-               
-                if (employeeDTO.Specialization == null) {
+
+                if (employeeDTO.Specialization == null)
+                {
                     var emp2 = mapper.Map<Assistant>(employeeDTO);
-                    emp=mapper.Map<AppUser>(emp2); 
+                    emp = mapper.Map<AppUser>(emp2);
                 }
-                else{ var emp2 = mapper.Map<Doctor>(employeeDTO);
-                    emp=mapper.Map<AppUser>(emp2);
+                else
+                {
+                    var emp2 = mapper.Map<Doctor>(employeeDTO);
+                    emp = mapper.Map<AppUser>(emp2);
                 }
-                var check=await unitOfWork.UserManager.FindByEmailAsync(employeeDTO.Email);
-                if (check != null) {
+                var check = await unitOfWork.UserManager.FindByEmailAsync(employeeDTO.Email);
+                if (check != null)
+                {
 
                     ModelState.AddModelError("", "This Employee is Exist");
-                return BadRequest(ModelState);
+                    return BadRequest(ModelState);
                 }
                 else
                 {
                     // add image
-                    var uniqueFilleName=Guid.NewGuid().ToString()+"_" + DateTime.Now.ToString();
+                    var uniqueFilleName = Guid.NewGuid().ToString() + "_" + DateTime.Now.ToString();
                     uniqueFilleName += Path.GetFileName(employeeDTO.image.FileName);
 
                     string ImageFullPath = webHostEnvironment.WebRootPath + "/Images/" + uniqueFilleName;
                     var result = await unitOfWork.UserManager.CreateAsync(emp, employeeDTO.Password);
-                    using(var stream = System.IO.File.Create(ImageFullPath))
+                    using (var stream = System.IO.File.Create(ImageFullPath))
                     {
                         employeeDTO.image.CopyTo(stream);
                     }
@@ -120,7 +128,7 @@ namespace Medical_CenterAPI.Controllers
                 }
 
 
-            
+
             }
             else
             {
@@ -133,21 +141,23 @@ namespace Medical_CenterAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user=mapper.Map<Patient>(UserFromRequest);
-                var result= await unitOfWork.UserManager.FindByEmailAsync(user.Email!);
-                if (result != null) {
+                var user = mapper.Map<Patient>(UserFromRequest);
+                var result = await unitOfWork.UserManager.FindByEmailAsync(user.Email!);
+                if (result != null)
+                {
                     if (result.EmailConfirmed == false)
                     {
                         //create  token to verify Email
-                        string token =await unitOfWork.UserManager.GenerateEmailConfirmationTokenAsync(result);
-                         result.ConfirmToken = token; 
+                        string token = await unitOfWork.UserManager.GenerateEmailConfirmationTokenAsync(result);
+                        result.ConfirmToken = token;
                         await unitOfWork.CommitAsync();
 
                         try
-                        { await emailSender.SendEmailAsync(result.Email, "Verify Email", "Please verify your email by clicking on this link <a href='https://localhost:7251/api/Account/VerifyEmailToken?Id=" + result.Id.ToString() + "&Token=" + Uri.EscapeDataString(result.ConfirmToken) + "'>Verify EMAIL</a>");
+                        {
+                            await emailSender.SendEmailAsync(result.Email, "Verify Email", "Please verify your email by clicking on this link <a href='https://localhost:7251/api/Account/VerifyEmailToken?Id=" + result.Id.ToString() + "&Token=" + Uri.EscapeDataString(result.ConfirmToken) + "'>Verify EMAIL</a>");
 
-                                }
-                        catch(Exception ex)
+                        }
+                        catch (Exception ex)
                         {
                             return BadRequest("Failed to send email: " + ex.Message);
                         }
@@ -161,7 +171,7 @@ namespace Medical_CenterAPI.Controllers
                     else
                     {
                         ModelState.AddModelError("", "The email already Confirmed.");
-                     return BadRequest(ModelState);
+                        return BadRequest(ModelState);
                     }
                 }
                 else
@@ -184,17 +194,17 @@ namespace Medical_CenterAPI.Controllers
 
         [HttpGet("VerifyEmailToken")]
 
-        public async Task<IActionResult>  VerifyEmail(string Id,string token)
+        public async Task<IActionResult> VerifyEmail(string Id, string token)
         {
 
             var user = unitOfWork.UserManager.Users.FirstOrDefault(x => x.Id.ToString() == Id);
 
-            if(user == null || user.ConfirmToken !=token) return BadRequest("Invalid confirmation token");
+            if (user == null || user.ConfirmToken != token) return BadRequest("Invalid confirmation token");
 
             else
             {
                 user.ConfirmToken = null;
-                user.EmailConfirmed = true; 
+                user.EmailConfirmed = true;
                 await unitOfWork.CommitAsync();
                 return Ok("Email confirmed successfully");
             }
@@ -232,26 +242,27 @@ namespace Medical_CenterAPI.Controllers
 
             }
 
-            
+
             return BadRequest(ModelState);
         }
 
 
         [HttpDelete("DeleteEmployee")]
-        public async Task<IActionResult> Delete( [FromBody]Guid id)
+        public async Task<IActionResult> Delete([FromBody] Guid id)
         {
-           
-           var DepDoctors=await unitOfWork.Doctors.GetByIdAsync(id);
-            var DepAssistants=await unitOfWork.Assistants.GetByIdAsync(id);  
-            if(DepDoctors == null && DepAssistants==null)
+
+            var DepDoctors = await unitOfWork.Doctors.GetByIdAsync(id);
+            var DepAssistants = await unitOfWork.Assistants.GetByIdAsync(id);
+            if (DepDoctors == null && DepAssistants == null)
             {
                 return Ok();
             }
-            else if(DepDoctors==null && DepAssistants != null){
-               await  unitOfWork.Assistants.DeleteAsync(id);
+            else if (DepDoctors == null && DepAssistants != null)
+            {
+                await unitOfWork.Assistants.DeleteAsync(id);
                 await unitOfWork.Assistants.SaveChangesAsync();
             }
-            else if(DepDoctors != null && DepAssistants == null)
+            else if (DepDoctors != null && DepAssistants == null)
             {
                 await unitOfWork.Doctors.DeleteAsync(id);
                 await unitOfWork.Doctors.SaveChangesAsync();
@@ -262,8 +273,59 @@ namespace Medical_CenterAPI.Controllers
 
         }
 
+        [HttpPost("UpdateEmployee")]
+        public async Task<IActionResult> Update([FromForm] EmployeeDTO employeeDTO)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var emp= await unitOfWork.UserManager.FindByEmailAsync(employeeDTO.Email);
+                if (emp == null)
+                {
+                    return BadRequest("The Employee not Exist");
+
+                }
+                else
+
+                {
+                    var DepDoctors = await unitOfWork.Doctors.GetByIdAsync(emp.Id);
+                    var DepAssistants = await unitOfWork.Assistants.GetByIdAsync(emp.Id);
+                    if(DepAssistants== null)
+                    { 
+                        await unitOfWork.Doctors.UpdateAsync(DepDoctors);
+                        await unitOfWork.CommitAsync();
+                    
+                    }
+                    else
+                    {
+                        await unitOfWork.Assistants.UpdateAsync(DepAssistants);     
+
+                        await unitOfWork.CommitAsync();
+                    }
+
+                    return Ok("Updated Successfully");
+
+
+
+                }
+
+
+
+
+
+
+            }
+
+
+            else
+            {
+                return BadRequest(ModelState);
+            }
 
 
 
         }
+
+
+    }
 }
