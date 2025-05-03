@@ -58,6 +58,7 @@ namespace Medical_CenterAPI.Controllers
 
                     User.ImagePath = imageFullPath;
 
+
                     var result = await unitOfWork.UserManager.CreateAsync(User, User.Password);
                     if (result.Succeeded)
                     {
@@ -88,22 +89,13 @@ namespace Medical_CenterAPI.Controllers
         }
         [HttpPost("AddEmployee")]
 
+        [AllowAnonymous]
         public async Task<IActionResult> RegisterEmployee([FromForm] EmployeeDTO employeeDTO)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                AppUser emp;
 
-                if (employeeDTO.Specialization == null)
-                {
-                    var emp2 = mapper.Map<Assistant>(employeeDTO);
-                    emp = mapper.Map<AppUser>(emp2);
-                }
-                else
-                {
-                    var emp2 = mapper.Map<Doctor>(employeeDTO);
-                    emp = mapper.Map<AppUser>(emp2);
-                }
+               
                 var check = await unitOfWork.UserManager.FindByEmailAsync(employeeDTO.Email);
                 if (check != null)
                 {
@@ -112,17 +104,60 @@ namespace Medical_CenterAPI.Controllers
                     return BadRequest(ModelState);
                 }
                 else
-                {
+                { 
+                    
+                    
+                    
+                    
+                    
+                    if (employeeDTO.image == null)
+                    {
+                        ModelState.AddModelError("", "image is required");
+                        return BadRequest(ModelState);  
+                    }
+
+
+                    AppUser emp;
+
+                    IdentityResult result;
+                    if (employeeDTO.Specialization == null)
+                    {
+                    var assistant = mapper.Map<Assistant>(employeeDTO);
+                      result=  await unitOfWork.UserManager.CreateAsync(assistant, employeeDTO.Password);
+                        emp= await unitOfWork.Assistants.GetByIdAsync(assistant.Id);
+                    }
+
+                    else
+                    {
+                         var  doctor = mapper.Map<Doctor>(employeeDTO);
+                        result= await unitOfWork.UserManager.CreateAsync(doctor, employeeDTO.Password);
+                        emp=await  unitOfWork.Doctors.GetByIdAsync(doctor.Id);
+
+                    }
+
+                    if (!result.Succeeded)
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError("", error.Description);
+                        }
+                        return BadRequest(ModelState);
+                    }
+                
+                 
+                    
                     // add image
-                    var uniqueFilleName = Guid.NewGuid().ToString() + "_" + DateTime.Now.ToString();
+                    var uniqueFilleName = Guid.NewGuid().ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
                     uniqueFilleName += Path.GetFileName(employeeDTO.image.FileName);
 
                     string ImageFullPath = webHostEnvironment.WebRootPath + "/Images/" + uniqueFilleName;
-                    var result = await unitOfWork.UserManager.CreateAsync(emp, employeeDTO.Password);
+                    
                     using (var stream = System.IO.File.Create(ImageFullPath))
                     {
                         employeeDTO.image.CopyTo(stream);
                     }
+                    emp.ImagePath = ImageFullPath;
+                 
                     await unitOfWork.CommitAsync();
                     return Ok("Employee registered successfully");
                 }
@@ -137,14 +172,15 @@ namespace Medical_CenterAPI.Controllers
             }
         }
         [HttpPost("ConfirmEmail")]
-        public async Task<IActionResult> SaveRegister(RegisterUser UserFromRequest)
+        public async Task<IActionResult> SaveRegister(ConfirmDTO UserFromRequest)
         {
             if (ModelState.IsValid)
             {
-                var user = mapper.Map<Patient>(UserFromRequest);
+                var user = mapper.Map<AppUser>(UserFromRequest);
                 var result = await unitOfWork.UserManager.FindByEmailAsync(user.Email!);
                 if (result != null)
                 {
+                    if(result.Password!=UserFromRequest.Password) return BadRequest("Password Error");
                     if (result.EmailConfirmed == false)
                     {
                         //create  token to verify Email
@@ -251,35 +287,41 @@ namespace Medical_CenterAPI.Controllers
         public async Task<IActionResult> Delete([FromBody] Guid id)
         {
 
+            var patient = await unitOfWork.Patients.GetByIdAsync(id);
+
+
             var DepDoctors = await unitOfWork.Doctors.GetByIdAsync(id);
             var DepAssistants = await unitOfWork.Assistants.GetByIdAsync(id);
-            if (DepDoctors == null && DepAssistants == null)
+            if (DepDoctors == null && DepAssistants == null&&patient!=null)
             {
-                return Ok();
+
+                await unitOfWork.Patients.DeleteAsync(patient.Id);   
+
+
             }
             else if (DepDoctors == null && DepAssistants != null)
             {
                 await unitOfWork.Assistants.DeleteAsync(id);
-                await unitOfWork.Assistants.SaveChangesAsync();
+             
             }
             else if (DepDoctors != null && DepAssistants == null)
             {
                 await unitOfWork.Doctors.DeleteAsync(id);
-                await unitOfWork.Doctors.SaveChangesAsync();
+                
 
             }
-
+            await unitOfWork.CommitAsync();
             return Ok();
 
         }
 
         [HttpPost("UpdateEmployee")]
-        public async Task<IActionResult> Update([FromForm] EmployeeDTO employeeDTO)
+        public async Task<IActionResult> Update([FromForm] UpdateDTO employeeDTO)
         {
             if (ModelState.IsValid)
             {
 
-                var emp= await unitOfWork.UserManager.FindByEmailAsync(employeeDTO.Email);
+                var emp= await unitOfWork.UserManager.FindByNameAsync(employeeDTO.UserName);
                 if (emp == null)
                 {
                     return BadRequest("The Employee not Exist");
@@ -289,19 +331,61 @@ namespace Medical_CenterAPI.Controllers
 
                 {
                     var DepDoctors = await unitOfWork.Doctors.GetByIdAsync(emp.Id);
+                    
                     var DepAssistants = await unitOfWork.Assistants.GetByIdAsync(emp.Id);
-                    if(DepAssistants== null)
-                    { 
-                        await unitOfWork.Doctors.UpdateAsync(DepDoctors);
-                        await unitOfWork.CommitAsync();
+
+                    string uniqueFilleName;
+                    string ImageFullPath;
+                    if (employeeDTO.image != null)
+                    {  uniqueFilleName = Guid.NewGuid().ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                    uniqueFilleName += Path.GetFileName(employeeDTO.image.FileName);
+
+                           ImageFullPath = webHostEnvironment.WebRootPath + "/Images/" + uniqueFilleName;
+
+
+                        System.IO.File.Delete(emp.ImagePath);
+                        using(var stream= System.IO.File.Create(ImageFullPath))
+                        {
+                            employeeDTO.image.CopyTo(stream);   
+                        }
+                    }
+                    
+                    else
+                    {
+                        ImageFullPath = "";
+                        System.IO.File.Delete(emp.ImagePath) ;
+
+                    }
+                   
+                    if (DepAssistants== null)
+                    {
+                        
+                        DepDoctors.PhoneNumber = employeeDTO.PhoneNumber;
+                        DepDoctors.Specialization = employeeDTO.Specialization;
+
+                      
+
+                        DepDoctors.ImagePath = ImageFullPath;
+
+                       
                     
                     }
                     else
                     {
-                        await unitOfWork.Assistants.UpdateAsync(DepAssistants);     
+                        DepAssistants.PhoneNumber = employeeDTO.PhoneNumber;
 
-                        await unitOfWork.CommitAsync();
+                     
+
+                        DepDoctors.ImagePath = ImageFullPath;
+
+                        
+
+
+
+
                     }
+                    await unitOfWork.CommitAsync();
+
 
                     return Ok("Updated Successfully");
 

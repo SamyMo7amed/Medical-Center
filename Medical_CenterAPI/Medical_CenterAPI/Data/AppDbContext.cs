@@ -41,14 +41,14 @@ namespace Medical_CenterAPI.Data
             builder.Entity<Patient>()
                 .HasMany(p => p.Appointments)
                 .WithOne(a => a.Patiant)
-                .HasForeignKey(a => a.PatiantId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(a => a.PatientId)
+                .OnDelete(DeleteBehavior.SetNull);
             // Assistant --- AppointmentConfirmations
             builder.Entity<Assistant>()
                 .HasMany(a => a.AppointmentConfirmations)
                 .WithOne(c => c.Assistant)
                 .HasForeignKey(c => c.AssistantId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.SetNull);
             // Appointment --- AppointmentConfirmations
             builder.Entity<AppointmentConfirmation>()
                 .HasOne(ac => ac.Appointment)

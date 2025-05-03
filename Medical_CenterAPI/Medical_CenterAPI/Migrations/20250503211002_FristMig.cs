@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Medical_CenterAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class FristMig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,12 +30,15 @@ namespace Medical_CenterAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ConfirmPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConfirmToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
                     Specialization = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Age = table.Column<double>(type: "float", nullable: true),
                     MedicalHistoryJson = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Emailtoken = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -82,13 +85,13 @@ namespace Medical_CenterAPI.Migrations
                 columns: table => new
                 {
                     AppointmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PatiantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DoctorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AssistantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DoctorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    AssistantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     AppointmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AppointmentConfirmationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    AppointmentConfirmationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -97,8 +100,7 @@ namespace Medical_CenterAPI.Migrations
                         name: "FK_Appointments_AspNetUsers_AssistantId",
                         column: x => x.AssistantId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Appointments_AspNetUsers_DoctorId",
                         column: x => x.DoctorId,
@@ -106,11 +108,11 @@ namespace Medical_CenterAPI.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Appointments_AspNetUsers_PatiantId",
-                        column: x => x.PatiantId,
+                        name: "FK_Appointments_AspNetUsers_PatientId",
+                        column: x => x.PatientId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -203,9 +205,10 @@ namespace Medical_CenterAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AppointmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AssistantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AppointmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    AssistantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ConfirmationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    patientId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -222,19 +225,30 @@ namespace Medical_CenterAPI.Migrations
                         column: x => x.AssistantId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
+                    table.ForeignKey(
+                        name: "FK_AppointmentConfirmations_AspNetUsers_patientId",
+                        column: x => x.patientId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppointmentConfirmations_AppointmentId",
                 table: "AppointmentConfirmations",
                 column: "AppointmentId",
-                unique: true);
+                unique: true,
+                filter: "[AppointmentId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppointmentConfirmations_AssistantId",
                 table: "AppointmentConfirmations",
                 column: "AssistantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppointmentConfirmations_patientId",
+                table: "AppointmentConfirmations",
+                column: "patientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_AssistantId",
@@ -247,9 +261,9 @@ namespace Medical_CenterAPI.Migrations
                 column: "DoctorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Appointments_PatiantId",
+                name: "IX_Appointments_PatientId",
                 table: "Appointments",
-                column: "PatiantId");
+                column: "PatientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

@@ -18,9 +18,6 @@ namespace Medical_CenterAPI.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.4")
-                .HasAnnotation("Proxies:ChangeTracking", false)
-                .HasAnnotation("Proxies:CheckEquality", false)
-                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -120,22 +117,22 @@ namespace Medical_CenterAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AppointmentConfirmationId")
+                    b.Property<Guid?>("AppointmentConfirmationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("AppointmentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("AssistantId")
+                    b.Property<Guid?>("AssistantId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("DoctorId")
+                    b.Property<Guid?>("DoctorId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("PatiantId")
+                    b.Property<Guid?>("PatientId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
@@ -147,7 +144,7 @@ namespace Medical_CenterAPI.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.HasIndex("PatiantId");
+                    b.HasIndex("PatientId");
 
                     b.ToTable("Appointments");
                 });
@@ -158,10 +155,10 @@ namespace Medical_CenterAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AppointmentId")
+                    b.Property<Guid?>("AppointmentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AssistantId")
+                    b.Property<Guid?>("AssistantId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("ConfirmationDate")
@@ -170,12 +167,18 @@ namespace Medical_CenterAPI.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("patientId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AppointmentId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[AppointmentId] IS NOT NULL");
 
                     b.HasIndex("AssistantId");
+
+                    b.HasIndex("patientId");
 
                     b.ToTable("AppointmentConfirmations");
                 });
@@ -336,6 +339,9 @@ namespace Medical_CenterAPI.Migrations
                     b.Property<double>("Age")
                         .HasColumnType("float");
 
+                    b.Property<string>("Emailtoken")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("MedicalHistoryJson")
                         .HasColumnType("nvarchar(max)");
 
@@ -346,21 +352,17 @@ namespace Medical_CenterAPI.Migrations
                 {
                     b.HasOne("Medical_CenterAPI.Models.Assistant", "Assistant")
                         .WithMany()
-                        .HasForeignKey("AssistantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AssistantId");
 
                     b.HasOne("Medical_CenterAPI.Models.Doctor", "Doctor")
                         .WithMany("Appointments")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Medical_CenterAPI.Models.Patient", "Patiant")
                         .WithMany("Appointments")
-                        .HasForeignKey("PatiantId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Assistant");
 
@@ -374,18 +376,22 @@ namespace Medical_CenterAPI.Migrations
                     b.HasOne("Medical_CenterAPI.Models.Appointment", "Appointment")
                         .WithOne("AppointmentConfirmation")
                         .HasForeignKey("Medical_CenterAPI.Models.AppointmentConfirmation", "AppointmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Medical_CenterAPI.Models.Assistant", "Assistant")
                         .WithMany("AppointmentConfirmations")
                         .HasForeignKey("AssistantId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Medical_CenterAPI.Models.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("patientId");
 
                     b.Navigation("Appointment");
 
                     b.Navigation("Assistant");
+
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -441,8 +447,7 @@ namespace Medical_CenterAPI.Migrations
 
             modelBuilder.Entity("Medical_CenterAPI.Models.Appointment", b =>
                 {
-                    b.Navigation("AppointmentConfirmation")
-                        .IsRequired();
+                    b.Navigation("AppointmentConfirmation");
                 });
 
             modelBuilder.Entity("Medical_CenterAPI.Models.Assistant", b =>

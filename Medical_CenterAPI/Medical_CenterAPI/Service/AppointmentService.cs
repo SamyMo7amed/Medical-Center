@@ -23,7 +23,7 @@ namespace Medical_CenterAPI.Service
             var appointment = await _unitOfWork.Appointments.GetByIdAsync(id);
             if (appointment != null)
             {
-                 _unitOfWork.Appointments.DeleteAsync(id);
+                await  _unitOfWork.Appointments.DeleteAsync(id);
                 await _unitOfWork.CommitAsync();
             }
         }

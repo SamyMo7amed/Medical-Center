@@ -6,6 +6,9 @@ namespace Medical_CenterAPI.Models
         //properties that define relationShips
         public virtual List<AppointmentConfirmation>? AppointmentConfirmations { get; set; }
 
+
+       
+
     }
 
 }

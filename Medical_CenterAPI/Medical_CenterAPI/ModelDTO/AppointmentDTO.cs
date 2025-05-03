@@ -4,12 +4,14 @@ namespace Medical_CenterAPI.ModelDTO
 {
     public class AppointmentDTO
     {
+      
         public Guid PatientId { get; set; }
         public Guid DoctorId { get; set; }
-        public Guid? AssistantId { get; set; }
-        public Guid? AppointmentConfirmationId { get; set; }
+        public Guid AssistantId { get; set; }
+      
+        public DateTime Created { get; set; }= DateTime.Now;
         public DateTime AppointmentDate { get; set; }
-        public Appointment_Status Status { get; set; }
-        public DateTime CreatedAt { get; set; } 
+
+
     }
 }

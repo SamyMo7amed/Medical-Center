@@ -1,5 +1,8 @@
-﻿using Medical_CenterAPI.Data;
+﻿using AutoMapper;
+using Medical_CenterAPI.Data;
+using Medical_CenterAPI.ModelDTO;
 using Medical_CenterAPI.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace Medical_CenterAPI.Repository
@@ -8,7 +11,10 @@ namespace Medical_CenterAPI.Repository
     {
 
         private readonly AppDbContext _context; 
-        public AppointmentRepository(AppDbContext appDbContext) { 
+        private readonly IMapper _mapper;   
+        public AppointmentRepository(AppDbContext appDbContext,IMapper mapper) { 
+
+            this._mapper = mapper;   
         this._context = appDbContext;   
         }  
         public async Task AddAsync(Appointment entity)
@@ -36,9 +42,15 @@ namespace Medical_CenterAPI.Repository
 
         public async Task<Appointment?> GetByIdAsync(Guid id)
         {
-            var appointment = await _context.Appointments.FirstOrDefaultAsync(x=>x.AppointmentId==id );
+            var appointment1 = await _context.Appointments.FirstOrDefaultAsync(x=>x.AppointmentId==id );
 
-            return appointment;
+            if (appointment1 != null) { 
+            return appointment1;
+            }
+          
+            else { return null; }   
+
+            
         }
 
         public async Task SaveChangesAsync()
@@ -49,16 +61,20 @@ namespace Medical_CenterAPI.Repository
         {
              var appointment =  await _context.Appointments.FirstOrDefaultAsync(x => x.AppointmentId == entity.AppointmentId);
 
-            appointment.Assistant = entity.Assistant;   
-            appointment.AssistantId = entity.AssistantId;
-            appointment.AppointmentConfirmationId = entity.AppointmentConfirmationId;                        
-            appointment.AppointmentConfirmation=entity.AppointmentConfirmation; 
-            appointment.AppointmentDate = entity.AppointmentDate;       
-            appointment.CreatedAt = entity.CreatedAt;               
-            appointment.Doctor = entity.Doctor; 
-            appointment.DoctorId = entity.DoctorId; 
-            appointment.Patiant=entity.Patiant;
-            appointment.PatiantId = entity.PatiantId;
+            if (appointment != null)
+            {
+                appointment.Assistant = entity.Assistant;
+                appointment.AssistantId = entity.AssistantId;
+                appointment.AppointmentConfirmationId = entity.AppointmentConfirmationId;
+                appointment.AppointmentConfirmation = entity.AppointmentConfirmation;
+                appointment.AppointmentDate = entity.AppointmentDate;
+                appointment.CreatedAt = entity.CreatedAt;
+                appointment.Doctor = entity.Doctor;
+                appointment.DoctorId = entity.DoctorId;
+                appointment.Patiant = entity.Patiant;
+                appointment.PatientId = entity.PatientId;
+            }
+            
         }
     }
 }

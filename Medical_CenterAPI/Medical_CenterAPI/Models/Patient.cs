@@ -20,8 +20,9 @@ namespace Medical_CenterAPI.Models
             set => MedicalHistoryJson = JsonSerializer.Serialize(value); }
 
         //properties that define relationShips
-        public virtual List<Appointment> Appointments { get; set; } 
-        
+        public virtual List<Appointment> Appointments { get; set; }
+        public string? Emailtoken { get; set; }
+
 
     }
 }
