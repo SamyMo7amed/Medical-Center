@@ -97,13 +97,15 @@ namespace Medical_CenterAPI.Controllers
 
 
             var app = await _service.GetByIdAsync(id);
-            if (app == null)
+            if (app != null)
             {
                      await _service.DeleteAsync(id);
+                return Ok("Delete Successfully");
+
             }
             
 
-            return Ok("Delete Successfully");
+            return BadRequest("This already not exist");
 
         }
 

@@ -62,21 +62,14 @@ namespace Medical_CenterAPI.Controllers
 
 
         [HttpGet("SendConfirmAppointment")]
-        public async Task<IActionResult> SendConfirmAppointmetnEmail(Guid id)
+        public async Task<IActionResult> SendConfirmAppointmentEmail(Guid id)
         {
 
             var appointment = await _unitOfWork.Appointments.GetByIdAsync(id);
+            if (appointment.DoctorId == null) return NotFound("the doctor in appointment");
+           
 
 
-            if (appointment == null)
-            {
-
-
-
-                return NotFound("NotFound");
-            }
-
-          
 
                 var patient = await _unitOfWork.Patients.GetByIdAsync(appointment.PatientId?? Guid.Empty);
             
@@ -92,7 +85,7 @@ namespace Medical_CenterAPI.Controllers
 
             try
             {
-                await _EmailSender.SendEmailAsync(patient.Email!, "Confirm_Appointment", "Please confirm your appointment by  clicking on this link <a href='https://localhost:7251/api/Assistant/VerifyEmailToken?Id=" + user.Id.ToString() + "&Token=" + Uri.EscapeDataString(patient.Emailtoken) + "'>Verify EMAIL</a>");
+                await _EmailSender.SendEmailAsync(patient.Email!, "Confirm_Appointment", "Please confirm your appointment by  clicking on this link <a href='https://localhost:7251/api/Assistant/VerifyEmailToken?Id=" + user.Id.ToString() + "&Token=" + Uri.EscapeDataString(patient.Emailtoken) + "&Appointment="+appointment.AppointmentId+"'>Verify EMAIL</a>");
 
             }
             catch (Exception ex)
@@ -108,11 +101,12 @@ namespace Medical_CenterAPI.Controllers
 
         [HttpGet("VerifyEmailToken")]
 
-        public async Task<IActionResult> VerifyEmail(string Id, string token)
+        public async Task<IActionResult> VerifyEmail(string Id, string token,string Appointment)
         {
 
             var user = await _unitOfWork.UserManager.Users.FirstOrDefaultAsync(x => x.Id.ToString() == Id);
-
+            Guid id = Guid.Parse(Appointment);
+            var appointment = await _unitOfWork.Appointments.GetByIdAsync(id);
             bool Isval = await _unitOfWork.UserManager.VerifyUserTokenAsync(user, "Email", "ConfirmAppointment", token);
              var patient= mapper.Map<Patient>(user); 
 
@@ -123,7 +117,8 @@ namespace Medical_CenterAPI.Controllers
             else
             {
 
-               patient.Emailtoken = null;  
+               patient.Emailtoken = null;
+                appointment.Status = Appointment_Status.Confirmed;
                 await _unitOfWork.CommitAsync();
                 return Ok("Email confirmed successfully");
             }

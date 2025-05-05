@@ -16,7 +16,9 @@ namespace Medical_CenterAPI.ModelDTO
         public string Password { get; set; }
         [Compare("Password")]   
         public string ConfirmPassword {  get; set; }
-        public double Age {  get; set; }    
+
+        
+        public virtual double Age {  get; set; }    
         
         public string? ImagePath { get; set; }   
 

@@ -23,7 +23,7 @@ namespace Medical_CenterAPI.Service
             var confirmation = await _unitOfWork.AppointmentsConfirmations.GetByIdAsync(id);
             if (confirmation != null)
             {
-                 _unitOfWork.AppointmentsConfirmations.DeleteAsync(id);
+                await  _unitOfWork.AppointmentsConfirmations.DeleteAsync(id);
                 await _unitOfWork.CommitAsync();
             }
         }

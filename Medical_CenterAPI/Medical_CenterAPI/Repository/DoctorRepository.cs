@@ -47,7 +47,7 @@ namespace Medical_CenterAPI.Repository
 
         public async Task<Doctor?> GetByIdAsync(Guid id)
         {
-            var user = await appDbContext.Doctors.FirstOrDefaultAsync(x => x.Id == id);
+            var user = await appDbContext.Doctors.Include(x=>x.Appointments).FirstOrDefaultAsync(x => x.Id == id);
 
             return user;
         }

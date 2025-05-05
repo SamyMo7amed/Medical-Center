@@ -69,17 +69,40 @@ namespace Medical_CenterAPI.Controllers
             var doctor= await _unitOfWork.Doctors.GetByIdAsync(appointment1.DoctorId);
             var assistant = await _unitOfWork.Assistants.GetByIdAsync(appointment1.AssistantId);
              var app= await _service.GetByIdAsync(appointment.AppointmentId);
-            if (app == null && patient!=null&& doctor!=null&& assistant!=null )
+         
+
+
+            if (appointment == null)
             {
 
 
 
+                return NotFound("NotFound this appointment");
+            }
+
+            bool flag = false;
+            foreach (var appi in doctor.Appointments)
+            {
+                if (appointment.AppointmentDate.Date == appi.AppointmentDate.Date&& appointment.AppointmentDate.Hour==appi.AppointmentDate.Hour) 
+                flag = true;
+                
+            }
+
+
+            if (flag) return BadRequest("This appointment is not available");
+           
+                if (app == null && patient!=null&& doctor!=null&& assistant!=null )
+            {
+
+
+
+                appointment.Status = Appointment_Status.Pending;
                 await _service.AddAsync(appointment);
 
 
                 await _service.SaveChangesAsync();
 
-                return Ok(/*"Added Successfully"*/patient);
+                return Ok("Added Successfully");
             
 
             }

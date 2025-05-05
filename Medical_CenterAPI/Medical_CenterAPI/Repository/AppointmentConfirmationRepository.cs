@@ -17,7 +17,7 @@ namespace Medical_CenterAPI.Repository
 
         public async Task DeleteAsync(Guid id)
         {
-            var appointmentConfirmation=await  _context.AppointmentConfirmations.FirstOrDefaultAsync(x => x.Id == id);
+            var appointmentConfirmation= await  _context.AppointmentConfirmations.FirstOrDefaultAsync(x => x.Id == id);
             if (appointmentConfirmation != null) { 
             _context.AppointmentConfirmations.Remove(appointmentConfirmation);
             }

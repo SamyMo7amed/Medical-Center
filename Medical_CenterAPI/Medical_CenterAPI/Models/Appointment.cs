@@ -5,9 +5,9 @@ using System.Text.Json.Serialization;
 
 public enum Appointment_Status
 {
-    Pending,
-    Confirmed,
-    Canceled
+    Pending=0,
+    Confirmed=1,
+    Canceled=2
 }
 public class Appointment
 {
