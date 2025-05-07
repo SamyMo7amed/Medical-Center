@@ -58,9 +58,11 @@ namespace Medical_CenterAPI.Controllers
 
                     User.ImagePath = imageFullPath;
 
+                    var roleresult = await unitOfWork.UserManager.AddToRoleAsync(User,"Patient");
+
 
                     var result = await unitOfWork.UserManager.CreateAsync(User, User.Password);
-                    if (result.Succeeded)
+                    if (result.Succeeded&&roleresult.Succeeded)
                     {
                         using (var stream = System.IO.File.Create(imageFullPath))
                         {
@@ -123,8 +125,10 @@ namespace Medical_CenterAPI.Controllers
                     if (employeeDTO.Specialization == null)
                     {
                     var assistant = mapper.Map<Assistant>(employeeDTO);
+                        
                       result=  await unitOfWork.UserManager.CreateAsync(assistant, employeeDTO.Password);
                         emp= await unitOfWork.Assistants.GetByIdAsync(assistant.Id);
+                        await unitOfWork.UserManager.AddToRoleAsync(assistant, "Assistant");
                     }
 
                     else
@@ -132,6 +136,7 @@ namespace Medical_CenterAPI.Controllers
                          var  doctor = mapper.Map<Doctor>(employeeDTO);
                         result= await unitOfWork.UserManager.CreateAsync(doctor, employeeDTO.Password);
                         emp=await  unitOfWork.Doctors.GetByIdAsync(doctor.Id);
+                        await unitOfWork.UserManager.AddToRoleAsync(doctor, "Doctor");
 
                     }
 

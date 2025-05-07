@@ -24,8 +24,10 @@ namespace Medical_CenterAPI.ExtenstionMethods
             services.AddScoped<IJWTTokenService, JWTTokenService>();
             services.AddScoped<IService<Patient>,PatientService>();
             services.AddScoped<IUnitOfWork,UnitOFWork>();
-            services.AddTransient<Medical_CenterAPI.Service.IEmailSender,SmtpEmailSender>();  
+            services.AddTransient<Medical_CenterAPI.Service.IEmailSender,SmtpEmailSender>();
             //services.AddScoped<RoleManager<IdentityRole<Guid>>>();
+
+            services.AddScoped<InitializeRoles>();
 
 
         }

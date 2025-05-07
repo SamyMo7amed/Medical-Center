@@ -12,6 +12,7 @@ namespace Medical_CenterAPI.Repository
     {
 
         private readonly UserManager<AppUser> userManager;   
+        
         private readonly IConfiguration _configuration;
         public JWTTokenRepository(UserManager<AppUser> userManager,IConfiguration configuration) {
             this.userManager = userManager;
