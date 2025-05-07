@@ -257,7 +257,7 @@ namespace Medical_CenterAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+        public async Task<IActionResult> Login([FromBody] Medical_CenterAPI.ModelDTO.LoginRequst loginRequest)
         {
             if (ModelState.IsValid)
             {
@@ -300,17 +300,21 @@ namespace Medical_CenterAPI.Controllers
             if (DepDoctors == null && DepAssistants == null&&patient!=null)
             {
 
+                System.IO.File.Delete(patient.ImagePath);
+
                 await unitOfWork.Patients.DeleteAsync(patient.Id);   
 
 
             }
             else if (DepDoctors == null && DepAssistants != null)
             {
+                System.IO.File.Delete(DepAssistants.ImagePath);
                 await unitOfWork.Assistants.DeleteAsync(id);
              
             }
             else if (DepDoctors != null && DepAssistants == null)
             {
+                System.IO.File.Delete(DepDoctors.ImagePath);    
                 await unitOfWork.Doctors.DeleteAsync(id);
                 
 

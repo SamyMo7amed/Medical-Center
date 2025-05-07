@@ -51,6 +51,7 @@ namespace Medical_CenterAPI.Data
                 .OnDelete(DeleteBehavior.SetNull);
             // Appointment --- AppointmentConfirmations
             builder.Entity<AppointmentConfirmation>()
+
                 .HasOne(ac => ac.Appointment)
                 .WithOne(a => a.AppointmentConfirmation)
                 .HasForeignKey<AppointmentConfirmation>(ac => ac.AppointmentId)

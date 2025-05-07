@@ -1,7 +1,9 @@
 using Medical_CenterAPI.Data;
 using Medical_CenterAPI.ExtenstionMethods;
 using Medical_CenterAPI.Models;
+using Medical_CenterAPI.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -113,6 +115,32 @@ builder.Services.AddCors(options =>
 builder.Services.RegisterDI();
 
 var app = builder.Build();
+
+
+
+using (var scope = app.Services.CreateScope())
+{
+
+    var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
+    var check = unitOfWork.UserManager.FindByEmailAsync(builder.Configuration["Admin:gmail"]!);
+
+    if (check == null)
+    {
+        var user = new AppUser() { UserName = "Tanta", Email = builder.Configuration["Admin:gmail"]! };
+        var Password = builder.Configuration["Admin:pass"]!;
+        var result = await unitOfWork.UserManager.CreateAsync(user, Password);
+        if (result.Succeeded)
+        {
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            if (!await roleManager.RoleExistsAsync("Manager"))
+            {
+                await roleManager.CreateAsync(new IdentityRole("Manager"));
+            }
+            await unitOfWork.UserManager.AddToRoleAsync(user, "Manager");
+        }
+
+    }
+}
 
 using (var scope = app.Services.CreateScope())
 {
