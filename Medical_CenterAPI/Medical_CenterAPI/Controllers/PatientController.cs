@@ -1,5 +1,6 @@
 ﻿using Medical_CenterAPI.Models;
 using Medical_CenterAPI.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace Medical_CenterAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   
     public class PatientController : ControllerBase
     {
         private readonly IService<Patient> _Service;

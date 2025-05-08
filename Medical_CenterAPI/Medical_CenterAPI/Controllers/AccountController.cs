@@ -14,8 +14,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Medical_CenterAPI.Controllers
 {
-    [Route("api/[controller]")]
+ 
     [ApiController]
+    [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
         private readonly IUnitOfWork unitOfWork;
@@ -91,8 +92,8 @@ namespace Medical_CenterAPI.Controllers
         }
         [HttpPost("AddEmployee")]
 
-        [AllowAnonymous]
-        public async Task<IActionResult> RegisterEmployee([FromForm] EmployeeDTO employeeDTO)
+        [Authorize]
+        public async Task<IActionResult> RegisterEmployee([FromBody] EmployeeDTO employeeDTO)
         {
             if (ModelState.IsValid)
             {
@@ -177,6 +178,7 @@ namespace Medical_CenterAPI.Controllers
             }
         }
         [HttpPost("ConfirmEmail")]
+
         public async Task<IActionResult> SaveRegister(ConfirmDTO UserFromRequest)
         {
             if (ModelState.IsValid)
@@ -289,6 +291,7 @@ namespace Medical_CenterAPI.Controllers
 
 
         [HttpDelete("DeleteEmployee")]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Delete([FromBody] Guid id)
         {
 
@@ -325,7 +328,8 @@ namespace Medical_CenterAPI.Controllers
         }
 
         [HttpPost("UpdateEmployee")]
-        public async Task<IActionResult> Update([FromForm] UpdateDTO employeeDTO)
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> Update ([FromForm] UpdateDTO employeeDTO)
         {
             if (ModelState.IsValid)
             {
