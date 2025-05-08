@@ -320,7 +320,7 @@ namespace Medical_CenterAPI.Controllers
 
             }
             await unitOfWork.CommitAsync();
-            return Ok();
+            return Ok("Deleted Successfully");
 
         }
 

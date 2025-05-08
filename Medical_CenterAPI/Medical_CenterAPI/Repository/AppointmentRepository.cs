@@ -63,8 +63,7 @@ namespace Medical_CenterAPI.Repository
 
             if (appointment != null)
             {
-                appointment.Assistant = entity.Assistant;
-                appointment.AssistantId = entity.AssistantId;
+               
                 appointment.AppointmentConfirmationId = entity.AppointmentConfirmationId;
                 appointment.AppointmentConfirmation = entity.AppointmentConfirmation;
                 appointment.AppointmentDate = entity.AppointmentDate;

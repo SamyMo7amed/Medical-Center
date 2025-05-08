@@ -122,23 +122,27 @@ using (var scope = app.Services.CreateScope())
 {
 
     var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
-    var check = unitOfWork.UserManager.FindByEmailAsync(builder.Configuration["Admin:gmail"]!);
+    var check = await unitOfWork.UserManager.FindByEmailAsync(builder.Configuration["Admin:gmail"]!);
 
     if (check == null)
     {
-        var user = new AppUser() { UserName = "Tanta", Email = builder.Configuration["Admin:gmail"]! };
+        var user = new AppUser() { UserName = "Tanta", Email = builder.Configuration["Admin:gmail"]!, PhoneNumber = builder.Configuration["Admin:number"] };
         var Password = builder.Configuration["Admin:pass"]!;
+        user.Password = Password;   
+        user.ConfirmPassword=Password;
         var result = await unitOfWork.UserManager.CreateAsync(user, Password);
         if (result.Succeeded)
         {
-            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
             if (!await roleManager.RoleExistsAsync("Manager"))
             {
-                await roleManager.CreateAsync(new IdentityRole("Manager"));
+                await roleManager.CreateAsync(new IdentityRole<Guid>("Manager"));
+                await unitOfWork.CommitAsync();
             }
             await unitOfWork.UserManager.AddToRoleAsync(user, "Manager");
+            await unitOfWork.CommitAsync();
         }
-
+      
     }
 }
 

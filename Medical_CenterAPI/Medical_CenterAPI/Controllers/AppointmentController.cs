@@ -67,7 +67,7 @@ namespace Medical_CenterAPI.Controllers
             var appointment = mapper.Map<Appointment>(appointment1);
             var patient= await _unitOfWork.Patients.GetByIdAsync(appointment1.PatientId);
             var doctor= await _unitOfWork.Doctors.GetByIdAsync(appointment1.DoctorId);
-            var assistant = await _unitOfWork.Assistants.GetByIdAsync(appointment1.AssistantId);
+           
              var app= await _service.GetByIdAsync(appointment.AppointmentId);
          
 
@@ -91,7 +91,7 @@ namespace Medical_CenterAPI.Controllers
 
             if (flag) return BadRequest("This appointment is not available");
            
-                if (app == null && patient!=null&& doctor!=null&& assistant!=null )
+                if (app == null && patient!=null&& doctor!=null )
             {
 
 

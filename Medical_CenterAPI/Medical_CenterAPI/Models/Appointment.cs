@@ -31,12 +31,9 @@ public class Appointment
     [System.Text.Json.Serialization.JsonIgnore]
     public virtual Doctor Doctor { get; set; }
 
-    // 3-Assistant
+   
 
-    public Guid? AssistantId { get; set; }
-    [System.Text.Json.Serialization.JsonIgnore]
-     [ForeignKey(nameof(AssistantId))]
-    public virtual Assistant? Assistant { get; set; }
+    
 
     // 4- data 
 
