@@ -193,7 +193,7 @@ app.UseRouting();
 app.UseCors("MyPolicy");
 
 // 6. Authentication & Authorization
-//app.UseAuthentication(); // 🔑 Authenticate users
+app.UseAuthentication(); // 🔑 Authenticate users
 app.UseAuthorization();  // ✅ Must be between UseRouting and endpoints
 
 // 7. Swagger (for API documentation)
