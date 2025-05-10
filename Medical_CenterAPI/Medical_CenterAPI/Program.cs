@@ -17,9 +17,66 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
- 
+// 1. Add Configuration Files FIRST
+builder.Configuration.AddJsonFile("Secrets.json");
+
+// 2. Add DbContext and Data Services
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+
+// 3. Add Identity
+builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+// 4. Add Authentication (JWT)
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
+        RoleClaimType = ClaimTypes.Role  // Critical for [Authorize(Roles)]
+    };
+});
+
+// 5. Add Authorization Policies
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Manager", policy => policy.RequireRole("Manager"));
+    options.AddPolicy("Doctor", policy => policy.RequireRole("Doctor"));
+    options.AddPolicy("Assistant", policy => policy.RequireRole("Assistant"));
+    options.AddPolicy("Patient", policy => policy.RequireRole("Patient"));
+});
+
+// 6. Add AutoMapper
+builder.Services.AddAutoMapper(typeof(Program));
+
+// 7. Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyPolicy", pol => pol.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+
+// 8. Add Other Services (UnitOfWork, etc.)
+builder.Services.RegisterDI();
+
+// 9. Add Controllers
 builder.Services.AddControllers();
+
+// 10. Add Swagger
+
+
 
 
 builder.Services.AddSwaggerGen(op =>
@@ -62,78 +119,9 @@ builder.Services.AddSwaggerGen(op =>
         }
     });
 });
-builder.Services.AddDbContext<AppDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
-
-
-builder.Configuration.AddJsonFile("Secrets.json");
 
 
 
-// add configuration of Authentication
-//builder.Services.AddAuthentication(options =>
-//{
-//    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-//}).AddJwtBearer(options =>
-//{
-//    options.TokenValidationParameters = new TokenValidationParameters()
-//    {
-//        ValidateIssuer = true,
-//        ValidateAudience = true,
-//        ValidateLifetime = true,
-//        ValidateIssuerSigningKey = true,
-//        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-//        ValidAudience = builder.Configuration["Jwt:Audience"],
-//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
-
-//          RoleClaimType = ClaimTypes.Role
-//    };
-//    options.SaveToken=true;
-//});
-builder.Services.AddAuthentication(
-        Options =>
-        {
-            Options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            Options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            Options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        }
-).AddJwtBearer(
-        Options =>
-        {
-            Options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
-            {
-                ValidateAudience = builder.Configuration.GetValue<bool>("Jwt:Audience"),
-                ValidateIssuer = builder.Configuration.GetValue<bool>("Jwt:Issuer"),
-                ValidateIssuerSigningKey = builder.Configuration.GetValue<bool>("Jwt:Key"),
-                //ValidateLifetime = builder.Configuration.GetValue<bool>("JWT:ValidateLifetime"),
-                ValidIssuer = builder.Configuration["JWT:Issuer"],
-                ValidAudience = builder.Configuration["JWT:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]!)),
-                ClockSkew = TimeSpan.Zero
-            };
-        }
-);
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("Manager", policy => policy.RequireRole("Manager"));
-    options.AddPolicy("Doctor", policy => policy.RequireRole("Doctor"));
-    options.AddPolicy("Assistant", policy => policy.RequireRole("Assistant"));
-});
-
-builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
-
-builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("MyPolicy", pol =>
-    {
-        pol.AllowAnyMethod();
-        pol.AllowAnyOrigin();
-        pol.AllowAnyHeader();
-    });
-});
-builder.Services.RegisterDI();
 
 var app = builder.Build();
 

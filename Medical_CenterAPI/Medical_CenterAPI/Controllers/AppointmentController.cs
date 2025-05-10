@@ -12,7 +12,7 @@ namespace Medical_CenterAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-   
+    [Authorize]
     public class AppointmentController : ControllerBase
     {
         private readonly IService<Appointment> _service;

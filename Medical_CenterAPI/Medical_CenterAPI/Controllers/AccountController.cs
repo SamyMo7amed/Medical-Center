@@ -59,10 +59,17 @@ namespace Medical_CenterAPI.Controllers
 
                     User.ImagePath = imageFullPath;
 
-                    var roleresult = await unitOfWork.UserManager.AddToRoleAsync(User,"Patient");
+                    if (!await unitOfWork.RoleManager.RoleExistsAsync("Patient"))
+                    {
+                        await unitOfWork.RoleManager.CreateAsync(new IdentityRole<Guid>("Patient"));
+                        await unitOfWork.CommitAsync();
+                    }
+                      var result = await unitOfWork.UserManager.CreateAsync(User, User.Password);
+
+                     var roleresult = await unitOfWork.UserManager.AddToRoleAsync(User,"Patient");
 
 
-                    var result = await unitOfWork.UserManager.CreateAsync(User, User.Password);
+                    
                     if (result.Succeeded&&roleresult.Succeeded)
                     {
                         using (var stream = System.IO.File.Create(imageFullPath))
@@ -92,8 +99,8 @@ namespace Medical_CenterAPI.Controllers
         }
         [HttpPost("AddEmployee")]
 
-        [Authorize]
-        public async Task<IActionResult> RegisterEmployee([FromBody] EmployeeDTO employeeDTO)
+        [Authorize(Policy ="Manager")]
+        public async Task<IActionResult> RegisterEmployee([FromForm] EmployeeDTO employeeDTO)
         {
             if (ModelState.IsValid)
             {
@@ -291,7 +298,7 @@ namespace Medical_CenterAPI.Controllers
 
 
         [HttpDelete("DeleteEmployee")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Policy = "Manager")]
         public async Task<IActionResult> Delete([FromBody] Guid id)
         {
 
@@ -328,7 +335,7 @@ namespace Medical_CenterAPI.Controllers
         }
 
         [HttpPost("UpdateEmployee")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Policy = "Manager")]
         public async Task<IActionResult> Update ([FromForm] UpdateDTO employeeDTO)
         {
             if (ModelState.IsValid)

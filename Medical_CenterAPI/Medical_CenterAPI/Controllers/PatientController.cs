@@ -3,11 +3,14 @@ using Medical_CenterAPI.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace Medical_CenterAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
    
     public class PatientController : ControllerBase
     {
@@ -45,6 +48,30 @@ namespace Medical_CenterAPI.Controllers
             }
 
             return Ok(pas);
+        }
+
+        [HttpPost("UpdateMedicalHistoryJson/{patientId}")]
+        [Authorize(Policy = "Patient")]
+        public async Task<IActionResult> UpdateMedicalHistoryJson([FromRoute] Guid patientId, [FromBody] JsonElement json)
+        {
+            var patient = await _Service.GetByIdAsync(patientId);
+            if (patient == null)
+                return NotFound("Patient not found");
+
+      
+            patient.MedicalHistoryJson = json.GetRawText();
+
+    
+            var history = patient.MedicalHistory;
+            history["UpdatedAt"] = DateTime.UtcNow.ToString("u");
+
+          
+            patient.MedicalHistory = history;
+
+          await _Service.UpdateAsync(patient);
+            await _Service.SaveChangesAsync();  
+
+            return Ok(patient.MedicalHistory); 
         }
 
 

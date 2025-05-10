@@ -9,11 +9,13 @@ using Medical_CenterAPI.UnitOfWork;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Medical_CenterAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AssistantController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;   

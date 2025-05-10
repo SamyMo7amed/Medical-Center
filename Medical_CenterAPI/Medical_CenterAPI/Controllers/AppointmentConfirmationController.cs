@@ -2,6 +2,7 @@
 using Medical_CenterAPI.ModelDTO;
 using Medical_CenterAPI.Models;
 using Medical_CenterAPI.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Writers;
@@ -10,6 +11,7 @@ namespace Medical_CenterAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AppointmentConfirmationController : ControllerBase
     {
 
@@ -38,7 +40,7 @@ namespace Medical_CenterAPI.Controllers
 
         [HttpGet("AllAppConfirmations")]
 
-
+        
         public async Task<IActionResult> GetAll()
         {
             var appointments = await _service.GetAllAsync();
@@ -52,6 +54,7 @@ namespace Medical_CenterAPI.Controllers
         }
 
         [HttpPost("Add")]
+        [Authorize(Policy = "Assistant")]
         public async Task<IActionResult> Add([FromBody] AppointmentConfirmationDTO appointmentConfirmation1)
         {
             var app = mapper.Map<AppointmentConfirmation>(appointmentConfirmation1);
@@ -70,7 +73,7 @@ namespace Medical_CenterAPI.Controllers
 
         }
         [HttpPost("Update")]
-
+        [Authorize(Policy = "Assistant")]
         public async Task<IActionResult> Update([FromBody] AppointmentConfirmationDTO appointmentConfirmation1)
         {
             var app = mapper.Map<AppointmentConfirmation>(appointmentConfirmation1);
@@ -91,7 +94,7 @@ namespace Medical_CenterAPI.Controllers
         }
 
         [HttpDelete("Delete")]
-
+        [Authorize(Policy = "Assistant")]
         public async Task<IActionResult> Delete(Guid id)
         {
 
