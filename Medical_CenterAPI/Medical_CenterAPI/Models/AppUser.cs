@@ -6,7 +6,7 @@ namespace Medical_CenterAPI.Models
     public class AppUser :IdentityUser<Guid>
     {
      
-        public string? ImagePath {  get; set; }  
+        
    
         public string Password {  get; set; }
         [Compare("Password")]   

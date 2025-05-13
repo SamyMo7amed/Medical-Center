@@ -59,7 +59,7 @@ namespace Medical_CenterAPI.Repository
                 user.ConfirmPassword = entity.ConfirmPassword;
                 user.PhoneNumber = entity.PhoneNumber;
                 user.Age=entity.Age;
-                user.ImagePath = entity.ImagePath;
+          
 
 
             }

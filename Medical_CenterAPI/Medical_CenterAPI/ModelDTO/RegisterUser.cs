@@ -8,8 +8,8 @@ namespace Medical_CenterAPI.ModelDTO
 
 
 
-
-      public string UserName { get; set; }
+        [Required(ErrorMessage = "Username is required")]
+        public string UserName { get; set; }
 
         public string Email { get; set; }
 
@@ -18,12 +18,7 @@ namespace Medical_CenterAPI.ModelDTO
         public string ConfirmPassword {  get; set; }
 
         
-        public virtual double Age {  get; set; }    
         
-        public string? ImagePath { get; set; }   
-
-        public IFormFile? image {  get; set; }  
-
 
         public string PhoneNumber { get; set; }
         

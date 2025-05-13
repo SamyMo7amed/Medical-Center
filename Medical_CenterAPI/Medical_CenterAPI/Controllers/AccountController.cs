@@ -35,12 +35,13 @@ namespace Medical_CenterAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromForm] RegisterUser registerUser)
+        public async Task<IActionResult> Register([FromBody] RegisterUser registerUser)
         {
             if (ModelState.IsValid)
             {
 
-                var User = mapper.Map<Patient>(registerUser);
+                var User = new Patient() { UserName=registerUser.UserName ,Email=registerUser.Email};
+
                 var check = await unitOfWork.UserManager.FindByEmailAsync(registerUser.Email);
                 if (check != null)
                 {
@@ -50,21 +51,15 @@ namespace Medical_CenterAPI.Controllers
                 else
                 {
 
-                    // to add image 
-
-                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                    uniqueFileName += Path.GetExtension(registerUser.image.FileName);
-
-                    string imageFullPath = webHostEnvironment.WebRootPath + "/Images/" + uniqueFileName;
-
-                    User.ImagePath = imageFullPath;
+                 
+                    
 
                     if (!await unitOfWork.RoleManager.RoleExistsAsync("Patient"))
                     {
                         await unitOfWork.RoleManager.CreateAsync(new IdentityRole<Guid>("Patient"));
                         await unitOfWork.CommitAsync();
                     }
-                      var result = await unitOfWork.UserManager.CreateAsync(User, User.Password);
+                      var result = await unitOfWork.UserManager.CreateAsync(User, registerUser.Password);
 
                      var roleresult = await unitOfWork.UserManager.AddToRoleAsync(User,"Patient");
 
@@ -72,11 +67,7 @@ namespace Medical_CenterAPI.Controllers
                     
                     if (result.Succeeded&&roleresult.Succeeded)
                     {
-                        using (var stream = System.IO.File.Create(imageFullPath))
-                        {
-                            registerUser.image.CopyTo(stream);
-                        }
-
+                        
                         await unitOfWork.CommitAsync();
 
                         return Ok(new { Message = "User registered successfully" });
@@ -120,11 +111,7 @@ namespace Medical_CenterAPI.Controllers
                     
                     
                     
-                    if (employeeDTO.image == null)
-                    {
-                        ModelState.AddModelError("", "image is required");
-                        return BadRequest(ModelState);  
-                    }
+                    
 
 
                     AppUser emp;
@@ -159,17 +146,7 @@ namespace Medical_CenterAPI.Controllers
                 
                  
                     
-                    // add image
-                    var uniqueFilleName = Guid.NewGuid().ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                    uniqueFilleName += Path.GetFileName(employeeDTO.image.FileName);
-
-                    string ImageFullPath = webHostEnvironment.WebRootPath + "/Images/" + uniqueFilleName;
-                    
-                    using (var stream = System.IO.File.Create(ImageFullPath))
-                    {
-                        employeeDTO.image.CopyTo(stream);
-                    }
-                    emp.ImagePath = ImageFullPath;
+                   
                  
                     await unitOfWork.CommitAsync();
                     return Ok("Employee registered successfully");
@@ -310,7 +287,7 @@ namespace Medical_CenterAPI.Controllers
             if (DepDoctors == null && DepAssistants == null&&patient!=null)
             {
 
-                System.IO.File.Delete(patient.ImagePath);
+               
 
                 await unitOfWork.Patients.DeleteAsync(patient.Id);   
 
@@ -318,13 +295,13 @@ namespace Medical_CenterAPI.Controllers
             }
             else if (DepDoctors == null && DepAssistants != null)
             {
-                System.IO.File.Delete(DepAssistants.ImagePath);
+                
                 await unitOfWork.Assistants.DeleteAsync(id);
              
             }
             else if (DepDoctors != null && DepAssistants == null)
             {
-                System.IO.File.Delete(DepDoctors.ImagePath);    
+                
                 await unitOfWork.Doctors.DeleteAsync(id);
                 
 
@@ -354,28 +331,7 @@ namespace Medical_CenterAPI.Controllers
                     
                     var DepAssistants = await unitOfWork.Assistants.GetByIdAsync(emp.Id);
 
-                    string uniqueFilleName;
-                    string ImageFullPath;
-                    if (employeeDTO.image != null)
-                    {  uniqueFilleName = Guid.NewGuid().ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
-                    uniqueFilleName += Path.GetFileName(employeeDTO.image.FileName);
-
-                           ImageFullPath = webHostEnvironment.WebRootPath + "/Images/" + uniqueFilleName;
-
-
-                        System.IO.File.Delete(emp.ImagePath);
-                        using(var stream= System.IO.File.Create(ImageFullPath))
-                        {
-                            employeeDTO.image.CopyTo(stream);   
-                        }
-                    }
-                    
-                    else
-                    {
-                        ImageFullPath = "";
-                        System.IO.File.Delete(emp.ImagePath) ;
-
-                    }
+                  
                    
                     if (DepAssistants== null)
                     {
@@ -385,7 +341,7 @@ namespace Medical_CenterAPI.Controllers
 
                       
 
-                        DepDoctors.ImagePath = ImageFullPath;
+                        
 
                        
                     
@@ -396,7 +352,7 @@ namespace Medical_CenterAPI.Controllers
 
                      
 
-                        DepDoctors.ImagePath = ImageFullPath;
+                       
 
                         
 

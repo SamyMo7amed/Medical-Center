@@ -61,7 +61,7 @@ namespace Medical_CenterAPI.Repository
                 user.ConfirmToken = entity.ConfirmToken;
                 user.ConfirmPassword = entity.ConfirmPassword;
                 user.PhoneNumber = entity.PhoneNumber;
-                user.ImagePath = entity.ImagePath;
+
 
 
             }

@@ -70,7 +70,7 @@ namespace Medical_CenterAPI.Repository
                 user.ConfirmPassword = entity.ConfirmPassword;
                 user.PhoneNumber = entity.PhoneNumber;  
                 user.Specialization = entity.Specialization;    
-                user.ImagePath = entity.ImagePath;
+                
                 
             
             }
