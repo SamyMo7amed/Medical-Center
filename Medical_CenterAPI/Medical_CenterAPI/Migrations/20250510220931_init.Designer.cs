@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Medical_CenterAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250507234141_update")]
-    partial class update
+    [Migration("20250510220931_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

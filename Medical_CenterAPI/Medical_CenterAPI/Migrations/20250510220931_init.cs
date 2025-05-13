@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Medical_CenterAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class FristMig : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -87,7 +87,6 @@ namespace Medical_CenterAPI.Migrations
                     AppointmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     DoctorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    AssistantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     AppointmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -96,11 +95,6 @@ namespace Medical_CenterAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Appointments", x => x.AppointmentId);
-                    table.ForeignKey(
-                        name: "FK_Appointments_AspNetUsers_AssistantId",
-                        column: x => x.AssistantId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Appointments_AspNetUsers_DoctorId",
                         column: x => x.DoctorId,
@@ -249,11 +243,6 @@ namespace Medical_CenterAPI.Migrations
                 name: "IX_AppointmentConfirmations_patientId",
                 table: "AppointmentConfirmations",
                 column: "patientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Appointments_AssistantId",
-                table: "Appointments",
-                column: "AssistantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_DoctorId",

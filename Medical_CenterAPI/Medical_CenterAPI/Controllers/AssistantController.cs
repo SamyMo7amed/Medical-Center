@@ -87,7 +87,7 @@ namespace Medical_CenterAPI.Controllers
 
             try
             {
-                await _EmailSender.SendEmailAsync(patient.Email!, "Confirm_Appointment", "Please confirm your appointment by  clicking on this link <a href='https://localhost:7251/api/Assistant/VerifyEmailToken?Id=" + user.Id.ToString() + "&Token=" + Uri.EscapeDataString(patient.Emailtoken) + "&Appointment="+appointment.AppointmentId+"'>Verify EMAIL</a>");
+                await _EmailSender.SendEmailAsync(patient.Email!, "Confirm_Appointment", "Please confirm your appointment by  clicking on this link <a href='https://tantamedicalcenter12.runasp.net/api/Assistant/VerifyEmailToken?Id=" + user.Id.ToString() + "&Token=" + Uri.EscapeDataString(patient.Emailtoken) + "&Appointment="+appointment.AppointmentId+"'>Verify EMAIL</a>");
 
             }
             catch (Exception ex)
